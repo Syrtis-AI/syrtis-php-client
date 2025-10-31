@@ -1,0 +1,30 @@
+{
+  "name": "syrtis/syrtis-client-php",
+  "description": "PHP client library for interacting with Syrtis services and APIs.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Syrtis",
+      "email": "contact@syrtis.ai"
+    }
+  ],
+  "require": {
+    "php": ">=8.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "SyrtisClient\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SyrtisClient\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
