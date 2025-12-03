@@ -10,10 +10,27 @@ class AppWorkdir(PhpPackageWorkdir):
 
         raw_value = super().prepare_value(raw_value=raw_value)
 
+        def _build_remote_github(target: AppWorkdir) -> str:
+            return f"git@github.com:Syrtis-AI/{string_to_kebab_case(target.get_vendor_name())}-{string_to_kebab_case(target.get_project_name())}.git"
+
+        def _build_remote_gitlab(target: AppWorkdir) -> str:
+            return f"ssh://git@gitlab.syrtis.ai:4567/syrtis-suite-php/{string_to_kebab_case(target.get_vendor_name())}-{string_to_kebab_case(target.get_project_name())}.git"
+
         raw_value["git"] = {
             "main_branch": "main",
             "remote": [
-
+                {
+                    "name": "origin",
+                    "type": "gitlab",
+                    "url": _build_remote_gitlab,
+                    "create_remote": True,
+                },
+                {
+                    "name": "github",
+                    "type": "github",
+                    "url": _build_remote_github,
+                    "create_remote": True,
+                },
             ]
         }
 
