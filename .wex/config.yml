@@ -1,3 +1,7 @@
-name: php_client
-version: 0.0.1
-visibility: public
+global:
+  authors:
+    email: contact@syrtis.ai
+    name: weeger
+  name: php_client
+  vendor: syrtis
+  version: 0.0.1
