@@ -1,5 +1,5 @@
 {
-  "name": "syrtis/syrtis-client-php",
+  "name": "syrtis/php-client",
   "description": "PHP client library for interacting with Syrtis services and APIs.",
   "type": "library",
   "license": "MIT",
