@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace SyrtisClient;
 
+use function array_merge;
+
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Psr\Http\Message\ResponseInterface;
-use SyrtisClient\Exceptions\ApiException;
 
-use function array_merge;
 use function ltrim;
+
+use Psr\Http\Message\ResponseInterface;
+
 use function rtrim;
+
+use SyrtisClient\Exceptions\ApiException;
 
 /**
  * Minimal Syrtis API client built on top of Guzzle.
