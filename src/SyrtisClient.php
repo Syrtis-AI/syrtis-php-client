@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SyrtisClient;
 
+use GuzzleHttp\ClientInterface;
+
 /**
  * Minimal Syrtis API client built on top of Guzzle.
  *
@@ -13,5 +15,20 @@ namespace SyrtisClient;
  */
 class SyrtisClient extends \Wexample\PhpApi\Client
 {
-    private string $baseUrl = 'https://api.syrtis.ai';
+    public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai';
+
+    public function __construct(
+        string $baseUrl,
+        ?string $apiKey = null,
+        ?ClientInterface $httpClient = null,
+        array $defaultHeaders = [],
+    )
+    {
+        parent::__construct(
+            $baseUrl ?: self::DEFAULT_BASE_URL,
+            $apiKey,
+            $httpClient,
+            $defaultHeaders
+        );
+    }
 }
