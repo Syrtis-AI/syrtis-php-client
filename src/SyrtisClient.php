@@ -11,6 +11,7 @@ namespace SyrtisClient;
  * $client = new Client('https://api.syrtis.ai', 'api-key-here');
  * $response = $client->get('/v1/things', ['query' => ['page' => 1]]);
  */
-final class SyrtisClient extends Client
+class SyrtisClient extends \Wexample\PhpApi\Client
 {
+    private string $baseUrl = 'https://api.syrtis.ai';
 }
