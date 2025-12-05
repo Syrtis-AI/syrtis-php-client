@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace SyrtisClient;
+namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
+use SyrtisClient\Entity\Session;
+use Wexample\PhpApi\Const\HttpMethod;
 
 /**
  * Minimal Syrtis API client built on top of Guzzle.
@@ -13,7 +15,7 @@ use GuzzleHttp\ClientInterface;
  * $client = new Client('https://api.syrtis.ai', 'api-key-here');
  * $response = $client->get('/v1/things', ['query' => ['page' => 1]]);
  */
-class SyrtisClient extends \Wexample\PhpApi\Client
+class SyrtisClient extends \Wexample\PhpApi\Common\Client
 {
     public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai';
 
@@ -30,5 +32,14 @@ class SyrtisClient extends \Wexample\PhpApi\Client
             $httpClient,
             $defaultHeaders
         );
+    }
+
+    public function getSession(string $secureId): Session
+    {
+        $data = $this->requestJson(HttpMethod::GET, "/api/session/show/" . rawurlencode($secureId));
+
+        $payload = is_array($data['data'] ?? null) ? $data['data'] : $data;
+
+        return Session::fromArray($payload);
     }
 }
