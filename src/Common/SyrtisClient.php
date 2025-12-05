@@ -36,6 +36,7 @@ class SyrtisClient extends \Wexample\PhpApi\Common\Client
 
     public function getSession(string $secureId): Session
     {
+        // TODO Should be made generic.
         $data = $this->requestJson(HttpMethod::GET, "/api/session/show/" . rawurlencode($secureId));
 
         $payload = is_array($data['data'] ?? null) ? $data['data'] : $data;
