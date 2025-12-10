@@ -9,7 +9,8 @@ class Session
     public function __construct(
         private string $secureId,
         private string $title,
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {
@@ -19,6 +20,12 @@ class Session
         );
     }
 
-    public function getSecureId(): string { return $this->secureId; }
-    public function getTitle(): string { return $this->title; }
+    public function getSecureId(): string
+    {
+        return $this->secureId;
+    }
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
 }
