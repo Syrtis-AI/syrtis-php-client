@@ -12,7 +12,7 @@
   "require": {
     "php": ">=8.1",
     "guzzlehttp/guzzle": "^7.8",
-    "wexample/php-api": "1.0.78"
+    "wexample/php-api": "1.0.79"
   },
   "autoload": {
     "psr-4": {
