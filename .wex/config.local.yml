@@ -1,0 +1,2 @@
+libraries:
+  - ${LOCAL_WEXAMPLE_PACKAGES_PHP_SUITE_PATH}
