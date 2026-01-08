@@ -9,8 +9,7 @@ class Session extends AbstractApiEntity
     public function __construct(
         string $secureId,
         protected string $title,
-    )
-    {
+    ) {
         parent::__construct(
             secureId: $secureId
         );

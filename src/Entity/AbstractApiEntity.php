@@ -8,8 +8,7 @@ abstract class AbstractApiEntity
 {
     public function __construct(
         protected string $secureId,
-    )
-    {
+    ) {
     }
 
     abstract public static function fromArray(array $data): self;
