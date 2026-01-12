@@ -6,10 +6,9 @@ namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
 use SyrtisClient\Entity\Project;
-use SyrtisClient\Entity\Session;
+use SyrtisClient\Repository\ProjectRepository;
 use SyrtisClient\Repository\SessionRepository;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
-use Wexample\PhpApi\Const\HttpMethod;
 
 /**
  * Minimal Syrtis API client built on top of Guzzle.
@@ -45,17 +44,8 @@ class SyrtisClient extends AbstractApiEntitiesClient
     protected function getRepositoryClasses(): array
     {
         return [
+            ProjectRepository::class,
             SessionRepository::class,
         ];
-    }
-
-    public function getProjectList(): array
-    {
-        // TODO Should be made generic.
-        $data = $this->requestJson(HttpMethod::GET, "/api/project/list");
-
-        $payload = is_array($data['data'] ?? null) ? $data['data'] : $data;
-
-        return Project::fromArrayCollection($payload['items']);
     }
 }
