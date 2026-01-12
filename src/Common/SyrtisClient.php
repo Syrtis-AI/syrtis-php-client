@@ -7,6 +7,7 @@ namespace SyrtisClient\Common;
 use GuzzleHttp\ClientInterface;
 use SyrtisClient\Entity\Project;
 use SyrtisClient\Entity\Session;
+use SyrtisClient\Repository\SessionRepository;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 use Wexample\PhpApi\Const\HttpMethod;
 
@@ -43,17 +44,9 @@ class SyrtisClient extends AbstractApiEntitiesClient
 
     protected function getRepositoryClasses(): array
     {
-        return [];
-    }
-
-    public function getSession(string $secureId): Session
-    {
-        // TODO Should be made generic.
-        $data = $this->requestJson(HttpMethod::GET, "/api/session/show/" . rawurlencode($secureId));
-
-        $payload = is_array($data['data'] ?? null) ? $data['data'] : $data;
-
-        return Session::fromArray($payload);
+        return [
+            SessionRepository::class,
+        ];
     }
 
     public function getProjectList(): array
