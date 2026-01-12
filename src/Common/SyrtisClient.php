@@ -7,7 +7,7 @@ namespace SyrtisClient\Common;
 use GuzzleHttp\ClientInterface;
 use SyrtisClient\Entity\Project;
 use SyrtisClient\Entity\Session;
-use Wexample\PhpApi\Common\Client;
+use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 use Wexample\PhpApi\Const\HttpMethod;
 
 /**
@@ -17,7 +17,7 @@ use Wexample\PhpApi\Const\HttpMethod;
  * $client = new Client('https://api.syrtis.ai', 'api-key-here');
  * $response = $client->get('/v1/things', ['query' => ['page' => 1]]);
  */
-class SyrtisClient extends Client
+class SyrtisClient extends AbstractApiEntitiesClient
 {
     public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai';
 
@@ -39,6 +39,11 @@ class SyrtisClient extends Client
             'Content-Type',
             'application/json'
         );
+    }
+
+    protected function getRepositoryClasses(): array
+    {
+        return [];
     }
 
     public function getSession(string $secureId): Session

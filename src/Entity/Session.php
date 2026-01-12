@@ -15,7 +15,7 @@ class Session extends AbstractApiEntity
         );
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data): static
     {
         return new self(
             secureId: (string) $data['secureId'],
