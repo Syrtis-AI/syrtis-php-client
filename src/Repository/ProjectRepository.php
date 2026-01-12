@@ -22,7 +22,7 @@ class ProjectRepository extends AbstractApiRepository
     {
         $data = $this->client->requestJson(
             HttpMethod::GET,
-            '/api/' . $this->buildPath('list')
+            $this->buildPath('list')
         );
 
         $payload = is_array($data['data'] ?? null) ? $data['data'] : $data;

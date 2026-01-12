@@ -19,7 +19,7 @@ use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
  */
 class SyrtisClient extends AbstractApiEntitiesClient
 {
-    public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai';
+    public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai/api/';
 
     public function __construct(
         string $baseUrl,

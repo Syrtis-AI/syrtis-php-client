@@ -19,7 +19,7 @@ class SessionRepository extends AbstractApiRepository
     {
         $data = $this->client->requestJson(
             HttpMethod::GET,
-            '/api/' . $this->buildPath('show/' . rawurlencode($secureId))
+            $this->buildPath('show/' . rawurlencode($secureId))
         );
 
         $payload = is_array($data['data'] ?? null) ? $data['data'] : $data;
