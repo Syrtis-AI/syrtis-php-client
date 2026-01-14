@@ -13,5 +13,4 @@ class ProjectRepository extends AbstractApiRepository
     {
         return Project::class;
     }
-
 }
