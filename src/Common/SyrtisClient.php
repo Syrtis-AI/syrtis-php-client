@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
-use SyrtisClient\Entity\Project;
-use SyrtisClient\Repository\ProjectRepository;
 use SyrtisClient\Repository\SessionRepository;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 
@@ -44,7 +42,6 @@ class SyrtisClient extends AbstractApiEntitiesClient
     protected function getRepositoryClasses(): array
     {
         return [
-            ProjectRepository::class,
             SessionRepository::class,
         ];
     }
