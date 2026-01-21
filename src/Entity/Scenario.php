@@ -13,16 +13,20 @@ class Scenario extends AbstractApiEntity
 
     public function __construct(
         string $secureId,
+        // TODO Temp polyfill id, will be removed at v1.0.0
+        protected int $id,
         protected string $title,
-    ) {
+    )
+    {
         parent::__construct(
-            secureId: $secureId
+            secureId: $secureId,
         );
     }
 
     public static function fromArray(array $data): static
     {
         return new self(
+            id: (int) $data['id'],// TODO Temp polyfill id, will be removed at v1.0.0
             secureId: (string) $data['secureId'],
             title: (string) $data['title'],
         );
@@ -31,5 +35,10 @@ class Scenario extends AbstractApiEntity
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }
