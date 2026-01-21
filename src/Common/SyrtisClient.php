@@ -7,6 +7,7 @@ namespace SyrtisClient\Common;
 use GuzzleHttp\ClientInterface;
 use SyrtisClient\Repository\ScenarioRepository;
 use SyrtisClient\Repository\SessionRepository;
+use SyrtisClient\Repository\UserRepository;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 
 /**
@@ -45,6 +46,7 @@ class SyrtisClient extends AbstractApiEntitiesClient
         return [
             ScenarioRepository::class,
             SessionRepository::class,
+            UserRepository::class,
         ];
     }
 }
