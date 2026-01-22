@@ -16,8 +16,7 @@ class Scenario extends AbstractApiEntity
         // TODO Temp polyfill id, will be removed at v1.0.0
         protected int $id,
         protected string $title,
-    )
-    {
+    ) {
         parent::__construct(
             secureId: $secureId,
         );
