@@ -4,28 +4,15 @@ declare(strict_types=1);
 
 namespace SyrtisClient\Entity;
 
-abstract class AbstractApiEntity
+use Wexample\Helpers\Class\Traits\HasSnakeShortClassNameClassTrait;
+use Wexample\PhpApi\Common\AbstractApiEntity as BaseAbstractApiEntity;
+
+abstract class AbstractApiEntity extends BaseAbstractApiEntity
 {
-    public function __construct(
-        protected string $secureId,
-    ) {
-    }
+    use HasSnakeShortClassNameClassTrait;
 
-    abstract public static function fromArray(array $data): self;
-
-    public static function fromArrayCollection(array $collection): array
+    public static function getEntityName(): string
     {
-        $output = [];
-
-        foreach ($collection as $data) {
-            $output[] = static::fromArray($data);
-        }
-
-        return $output;
-    }
-
-    public function getSecureId(): string
-    {
-        return $this->secureId;
+        return static::getSnakeShortClassName();
     }
 }

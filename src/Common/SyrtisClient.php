@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
-use SyrtisClient\Entity\Project;
-use SyrtisClient\Entity\Session;
-use Wexample\PhpApi\Common\Client;
-use Wexample\PhpApi\Const\HttpMethod;
+use SyrtisClient\Repository\ScenarioRepository;
+use SyrtisClient\Repository\SessionRepository;
+use SyrtisClient\Repository\UserRepository;
+use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 
 /**
  * Minimal Syrtis API client built on top of Guzzle.
@@ -17,9 +17,9 @@ use Wexample\PhpApi\Const\HttpMethod;
  * $client = new Client('https://api.syrtis.ai', 'api-key-here');
  * $response = $client->get('/v1/things', ['query' => ['page' => 1]]);
  */
-class SyrtisClient extends Client
+class SyrtisClient extends AbstractApiEntitiesClient
 {
-    public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai';
+    public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai/api/';
 
     public function __construct(
         string $baseUrl,
@@ -41,23 +41,12 @@ class SyrtisClient extends Client
         );
     }
 
-    public function getSession(string $secureId): Session
+    protected function getRepositoryClasses(): array
     {
-        // TODO Should be made generic.
-        $data = $this->requestJson(HttpMethod::GET, "/api/session/show/" . rawurlencode($secureId));
-
-        $payload = is_array($data['data'] ?? null) ? $data['data'] : $data;
-
-        return Session::fromArray($payload);
-    }
-
-    public function getProjectList(): array
-    {
-        // TODO Should be made generic.
-        $data = $this->requestJson(HttpMethod::GET, "/api/project/list");
-
-        $payload = is_array($data['data'] ?? null) ? $data['data'] : $data;
-
-        return Project::fromArrayCollection($payload['items']);
+        return [
+            ScenarioRepository::class,
+            SessionRepository::class,
+            UserRepository::class,
+        ];
     }
 }
