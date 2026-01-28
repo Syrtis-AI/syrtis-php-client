@@ -32,11 +32,11 @@ class User extends AbstractApiEntity
         return new self(
             secureId: (string) ($data['secureId'] ?? ''),
             username: isset($data['username']) ? (string) $data['username'] : null,
-            dateCreated: self::parseDate($data['date_created'] ?? null),
-            dateLastLogin: self::parseDate($data['date_last_login'] ?? null),
+            dateCreated: self::parseDate($data['dateCreated'] ?? null),
+            dateLastLogin: self::parseDate($data['dateLastLogin'] ?? null),
             email: isset($data['email']) ? (string) $data['email'] : null,
-            firstName: isset($data['first_name']) ? (string) $data['first_name'] : null,
-            lastName: isset($data['last_name']) ? (string) $data['last_name'] : null,
+            firstName: isset($data['firstName']) ? (string) $data['firstName'] : null,
+            lastName: isset($data['lastName']) ? (string) $data['lastName'] : null,
         );
     }
 
