@@ -1,6 +1,6 @@
 # syrtis/php-client
 
-Version: 0.0.24
+Version: 0.0.25
 
 PHP client library for interacting with Syrtis services and APIs.
 
