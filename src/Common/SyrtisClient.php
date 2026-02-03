@@ -27,6 +27,7 @@ class SyrtisClient extends AbstractApiEntitiesClient
         ?string $apiKey = null,
         ?ClientInterface $httpClient = null,
         array $defaultHeaders = [],
+        bool $debugEnabled = false,
     )
     {
         parent::__construct(
@@ -35,6 +36,8 @@ class SyrtisClient extends AbstractApiEntitiesClient
             $httpClient,
             $defaultHeaders
         );
+
+        $this->setDebugEnabled($debugEnabled);
 
         $this->setDefaultHeader(
             'Content-Type',
