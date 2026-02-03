@@ -20,6 +20,7 @@ use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 class SyrtisClient extends AbstractApiEntitiesClient
 {
     public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai/api/';
+    protected ?array $entitySchemas = null;
 
     public function __construct(
         string $baseUrl,
@@ -48,5 +49,30 @@ class SyrtisClient extends AbstractApiEntitiesClient
             SessionRepository::class,
             UserRepository::class,
         ];
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getEntitySchemaDirectories(): array
+    {
+        return [
+            dirname(__DIR__, 2) . '/data/entity',
+        ];
+    }
+
+    /**
+     * @return array<string, array>
+     */
+    public function getEntitySchemas(): array
+    {
+        if ($this->entitySchemas !== null) {
+            return $this->entitySchemas;
+        }
+
+        $loader = new EntitySchemaLoader();
+        $this->entitySchemas = $loader->load($this->getEntitySchemaDirectories());
+
+        return $this->entitySchemas;
     }
 }
