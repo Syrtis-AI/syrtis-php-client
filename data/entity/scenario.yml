@@ -1,0 +1,17 @@
+name: scenario
+properties:
+  -
+    name: id
+    type: int
+    nullable: true
+    deprecated: true
+  -
+    name: title
+    type: string
+  -
+    name: project
+    type: relation
+    target: project
+    storage: secureId
+    apiField: project
+    property: projectSecureId
