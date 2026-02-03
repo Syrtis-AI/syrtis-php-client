@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SyrtisClient\Repository;
 
 use SyrtisClient\Entity\Scenario;
-use Wexample\PhpApi\Common\AbstractApiRepository;
+use SyrtisClient\Repository\AbstractSyrtisRepository;
 
-class ScenarioRepository extends AbstractApiRepository
+class ScenarioRepository extends AbstractSyrtisRepository
 {
     public static function getEntityType(): string
     {

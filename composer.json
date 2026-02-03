@@ -12,7 +12,8 @@
     "require": {
         "php": ">=8.1",
         "guzzlehttp/guzzle": "^7.8",
-        "wexample/php-api": "*"
+        "wexample/php-api": "*",
+        "symfony/yaml": "^6.0 || ^7.0"
     },
     "autoload": {
         "psr-4": {
