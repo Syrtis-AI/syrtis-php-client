@@ -3,7 +3,6 @@ properties:
   -
     name: id
     type: int
-    nullable: true
     deprecated: true
   -
     name: title
@@ -12,6 +11,3 @@ properties:
     name: project
     type: relation
     target: project
-    storage: secureId
-    apiField: project
-    property: projectSecureId
