@@ -24,3 +24,6 @@ properties:
     name: lastName
     type: string
     nullable: true
+  -
+    name: roles
+    type: array

@@ -8,7 +8,10 @@ use GuzzleHttp\ClientInterface;
 use SyrtisClient\Repository\ScenarioRepository;
 use SyrtisClient\Repository\SessionRepository;
 use SyrtisClient\Repository\UserRepository;
+use SyrtisClient\Entity\User;
+use SyrtisClient\Response\LoginResponse;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
+use Wexample\PhpApi\Const\HttpMethod;
 
 /**
  * Minimal Syrtis API client built on top of Guzzle.
@@ -77,5 +80,24 @@ class SyrtisClient extends AbstractApiEntitiesClient
         $this->entitySchemas = $loader->load($this->getEntitySchemaDirectories());
 
         return $this->entitySchemas;
+    }
+
+    public function login(string $login, string $password): LoginResponse
+    {
+        $response = $this->requestJson(
+            HttpMethod::POST,
+            'auth/login',
+            [
+                'json' => [
+                    'login' => $login,
+                    'password' => $password,
+                ],
+            ]
+        );
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->getRepository(User::class);
+
+        return new LoginResponse($response, $userRepository);
     }
 }
