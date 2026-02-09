@@ -98,6 +98,6 @@ class SyrtisClient extends AbstractApiEntitiesClient
         /** @var UserRepository $userRepository */
         $userRepository = $this->getRepository(User::class);
 
-        return new LoginResponse($response, $userRepository);
+        return new LoginResponse($response, $this);
     }
 }

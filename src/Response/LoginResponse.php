@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace SyrtisClient\Response;
 
 use SyrtisClient\Entity\User;
+use SyrtisClientInternal\Entity\UserConfig;
+use SyrtisClientInternal\Repository\UserConfigRepository;
+use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 use SyrtisClient\Repository\UserRepository;
 
 class LoginResponse
 {
     public function __construct(
         private array $response,
-        private UserRepository $userRepository
+        private AbstractApiEntitiesClient $client
     ) {
     }
 
@@ -27,7 +30,12 @@ class LoginResponse
             throw new \RuntimeException('ERR_BAD_RESPONSE_FORMAT');
         }
 
-        $user = $this->userRepository->hydrateFromApiItem($userData);
+        $repository = $this->client->getRepository(User::class);
+        if (! $repository instanceof UserRepository) {
+            throw new \RuntimeException('ERR_BAD_RESPONSE_FORMAT');
+        }
+
+        $user = $repository->hydrateFromApiItem($userData);
         if (! $user instanceof User) {
             throw new \RuntimeException('ERR_BAD_RESPONSE_FORMAT');
         }
@@ -62,11 +70,30 @@ class LoginResponse
         return $token;
     }
 
+    /**
+     * @return UserConfig[]
+     */
     public function getUserConfig(): array
     {
         $user = $this->getUser();
         $config = $user->retrieveMetadata('userConfig');
+        if (! is_array($config)) {
+            return [];
+        }
 
-        return is_array($config) ? $config : [];
+        $repository = $this->client->getRepository(UserConfig::class);
+        if (! $repository instanceof UserConfigRepository) {
+            throw new \RuntimeException('ERR_BAD_RESPONSE_FORMAT');
+        }
+
+        $entities = [];
+        foreach ($config as $item) {
+            if (! is_array($item)) {
+                continue;
+            }
+            $entities[] = $repository->hydrateFromApiItem($item);
+        }
+
+        return $entities;
     }
 }
