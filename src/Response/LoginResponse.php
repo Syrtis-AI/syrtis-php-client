@@ -61,4 +61,12 @@ class LoginResponse
 
         return $token;
     }
+
+    public function getUserConfig(): array
+    {
+        $user = $this->getUser();
+        $config = $user->retrieveMetadata('userConfig');
+
+        return is_array($config) ? $config : [];
+    }
 }
