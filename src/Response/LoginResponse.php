@@ -45,17 +45,24 @@ class LoginResponse
 
     public function getUserData(): array
     {
-        $userData = $this->response['data']['user'] ?? null;
-        if (! is_array($userData)) {
-            throw new \RuntimeException('ERR_BAD_RESPONSE_FORMAT');
-        }
-
+        $userData = $this->getUserApiData();
         $entityData = $userData['entity'] ?? null;
+
         if (! is_array($entityData)) {
             throw new \RuntimeException('ERR_BAD_RESPONSE_FORMAT');
         }
 
         return $entityData;
+    }
+
+    public function getUserApiData(): array
+    {
+        $userData = $this->response['data']['user'] ?? null;
+        if (! is_array($userData)) {
+            throw new \RuntimeException('ERR_BAD_RESPONSE_FORMAT');
+        }
+
+        return $userData;
     }
 
     public function getToken(): string
