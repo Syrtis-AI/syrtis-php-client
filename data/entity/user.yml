@@ -28,11 +28,11 @@ properties:
     type: string
     default: null
   -
-    name: first_name
+    name: firstName
     type: string
     default: null
   -
-    name: last_name
+    name: lastName
     type: string
     default: null
   -
