@@ -1,0 +1,84 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$rootDir = dirname(__DIR__);
+$dataDir = $rootDir . '/data/entity';
+$entityDir = $rootDir . '/src/Entity';
+
+if (! is_dir($dataDir)) {
+    fwrite(STDERR, "Error: missing data directory: {$dataDir}\n");
+    exit(1);
+}
+
+if (! is_dir($entityDir) && ! mkdir($entityDir, 0775, true) && ! is_dir($entityDir)) {
+    fwrite(STDERR, "Error: cannot create entity directory: {$entityDir}\n");
+    exit(1);
+}
+
+$files = glob($dataDir . '/*.yml');
+if ($files === false) {
+    fwrite(STDERR, "Error: cannot list YAML files in {$dataDir}\n");
+    exit(1);
+}
+
+sort($files);
+
+$created = 0;
+$skipped = 0;
+
+foreach ($files as $filePath) {
+    $baseName = pathinfo($filePath, PATHINFO_FILENAME);
+    $className = toStudlyCase($baseName);
+
+    if ($className === '' || $className === 'AbstractApiEntity') {
+        $skipped++;
+        continue;
+    }
+
+    $targetPath = $entityDir . '/' . $className . '.php';
+
+    if (is_file($targetPath)) {
+        $skipped++;
+        continue;
+    }
+
+    $content = buildEntityClass($className);
+    file_put_contents($targetPath, $content);
+    $created++;
+    echo "Created {$targetPath}\n";
+}
+
+echo "Done: created={$created}, skipped={$skipped}\n";
+
+function toStudlyCase(string $value): string
+{
+    $value = strtolower(trim($value));
+    if ($value === '') {
+        return '';
+    }
+
+    $value = preg_replace('/[^a-z0-9]+/', ' ', $value);
+    if (! is_string($value)) {
+        return '';
+    }
+
+    return str_replace(' ', '', ucwords($value));
+}
+
+function buildEntityClass(string $className): string
+{
+    return <<<PHP
+<?php
+
+declare(strict_types=1);
+
+namespace SyrtisClient\Entity;
+
+class {$className} extends AbstractApiEntity
+{
+}
+
+PHP;
+}
