@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace SyrtisClient\Repository;
+namespace {{REPOSITORY_NAMESPACE}};
 
-use SyrtisClient\Entity\{{CLASS_NAME}};
+use {{ENTITY_NAMESPACE}}\{{CLASS_NAME}};
 use Wexample\PhpApi\Common\AbstractApiRepository;
 
 class {{CLASS_NAME}}Repository extends AbstractApiRepository

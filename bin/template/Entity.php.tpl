@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace SyrtisClient\Entity;
+namespace {{ENTITY_NAMESPACE}};
 
-class {{CLASS_NAME}} extends AbstractApiEntity
+class {{CLASS_NAME}} extends {{ABSTRACT_ENTITY_CLASS}}
 {
 }
-

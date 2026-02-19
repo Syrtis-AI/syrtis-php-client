@@ -10,6 +10,9 @@ $rootDir = dirname(__DIR__);
 $dataDir = $rootDir . '/data/entity';
 $entityDir = $rootDir . '/src/Entity';
 $templatePath = $rootDir . '/bin/template/Entity.php.tpl';
+$rootNamespace = detectRootNamespace($rootDir);
+$entityNamespace = $rootNamespace . '\\Entity';
+$abstractEntityClass = detectAbstractEntityClass($rootDir, $entityNamespace);
 
 if (! is_dir($dataDir)) {
     fwrite(STDERR, "Error: missing data directory: {$dataDir}\n");
@@ -54,7 +57,12 @@ foreach ($files as $filePath) {
         continue;
     }
 
-    $content = buildEntityClass($template, $className);
+    $content = buildEntityClass(
+        $template,
+        $className,
+        $entityNamespace,
+        $abstractEntityClass
+    );
     file_put_contents($targetPath, $content);
     $created++;
     echo "Created {$targetPath}\n";
@@ -77,7 +85,39 @@ function toStudlyCase(string $value): string
     return str_replace(' ', '', ucwords($value));
 }
 
-function buildEntityClass(string $template, string $className): string
+function buildEntityClass(
+    string $template,
+    string $className,
+    string $entityNamespace,
+    string $abstractEntityClass
+): string
 {
-    return str_replace('{{CLASS_NAME}}', $className, $template);
+    return str_replace(
+        ['{{CLASS_NAME}}', '{{ENTITY_NAMESPACE}}', '{{ABSTRACT_ENTITY_CLASS}}'],
+        [$className, $entityNamespace, '\\' . ltrim($abstractEntityClass, '\\')],
+        $template
+    );
+}
+
+function detectRootNamespace(string $rootDir): string
+{
+    $composerPath = $rootDir . '/composer.json';
+    $composer = json_decode((string) file_get_contents($composerPath), true);
+    $autoload = $composer['autoload']['psr-4'] ?? [];
+    if (! is_array($autoload) || empty($autoload)) {
+        fwrite(STDERR, "Error: unable to read PSR-4 autoload namespace from {$composerPath}\n");
+        exit(1);
+    }
+
+    $firstNamespace = (string) array_key_first($autoload);
+    return rtrim($firstNamespace, '\\');
+}
+
+function detectAbstractEntityClass(string $rootDir, string $entityNamespace): string
+{
+    if (is_file($rootDir . '/src/Entity/AbstractApiEntity.php')) {
+        return $entityNamespace . '\\AbstractApiEntity';
+    }
+
+    return 'SyrtisClient\\Entity\\AbstractApiEntity';
 }

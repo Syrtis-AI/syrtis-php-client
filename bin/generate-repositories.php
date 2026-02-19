@@ -7,6 +7,9 @@ $rootDir = dirname(__DIR__);
 $dataDir = $rootDir . '/data/entity';
 $repositoryDir = $rootDir . '/src/Repository';
 $templatePath = $rootDir . '/bin/template/Repository.php.tpl';
+$rootNamespace = detectRootNamespace($rootDir);
+$entityNamespace = $rootNamespace . '\\Entity';
+$repositoryNamespace = $rootNamespace . '\\Repository';
 
 if (! is_dir($dataDir)) {
     fwrite(STDERR, "Error: missing data directory: {$dataDir}\n");
@@ -51,7 +54,12 @@ foreach ($files as $filePath) {
         continue;
     }
 
-    $content = buildRepositoryClass($template, $className);
+    $content = buildRepositoryClass(
+        $template,
+        $className,
+        $entityNamespace,
+        $repositoryNamespace
+    );
     file_put_contents($targetPath, $content);
     $created++;
     echo "Created {$targetPath}\n";
@@ -74,7 +82,30 @@ function toStudlyCase(string $value): string
     return str_replace(' ', '', ucwords($value));
 }
 
-function buildRepositoryClass(string $template, string $className): string
+function buildRepositoryClass(
+    string $template,
+    string $className,
+    string $entityNamespace,
+    string $repositoryNamespace
+): string
 {
-    return str_replace('{{CLASS_NAME}}', $className, $template);
+    return str_replace(
+        ['{{CLASS_NAME}}', '{{ENTITY_NAMESPACE}}', '{{REPOSITORY_NAMESPACE}}'],
+        [$className, $entityNamespace, $repositoryNamespace],
+        $template
+    );
+}
+
+function detectRootNamespace(string $rootDir): string
+{
+    $composerPath = $rootDir . '/composer.json';
+    $composer = json_decode((string) file_get_contents($composerPath), true);
+    $autoload = $composer['autoload']['psr-4'] ?? [];
+    if (! is_array($autoload) || empty($autoload)) {
+        fwrite(STDERR, "Error: unable to read PSR-4 autoload namespace from {$composerPath}\n");
+        exit(1);
+    }
+
+    $firstNamespace = (string) array_key_first($autoload);
+    return rtrim($firstNamespace, '\\');
 }
