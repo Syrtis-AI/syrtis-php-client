@@ -6,6 +6,7 @@ declare(strict_types=1);
 $rootDir = dirname(__DIR__);
 $dataDir = $rootDir . '/data/entity';
 $entityDir = $rootDir . '/src/Entity';
+$templatePath = $rootDir . '/bin/template/Entity.php.tpl';
 
 if (! is_dir($dataDir)) {
     fwrite(STDERR, "Error: missing data directory: {$dataDir}\n");
@@ -14,6 +15,12 @@ if (! is_dir($dataDir)) {
 
 if (! is_dir($entityDir) && ! mkdir($entityDir, 0775, true) && ! is_dir($entityDir)) {
     fwrite(STDERR, "Error: cannot create entity directory: {$entityDir}\n");
+    exit(1);
+}
+
+$template = file_get_contents($templatePath);
+if ($template === false || $template === '') {
+    fwrite(STDERR, "Error: missing or empty template: {$templatePath}\n");
     exit(1);
 }
 
@@ -44,7 +51,7 @@ foreach ($files as $filePath) {
         continue;
     }
 
-    $content = buildEntityClass($className);
+    $content = buildEntityClass($template, $className);
     file_put_contents($targetPath, $content);
     $created++;
     echo "Created {$targetPath}\n";
@@ -67,18 +74,7 @@ function toStudlyCase(string $value): string
     return str_replace(' ', '', ucwords($value));
 }
 
-function buildEntityClass(string $className): string
+function buildEntityClass(string $template, string $className): string
 {
-    return <<<PHP
-<?php
-
-declare(strict_types=1);
-
-namespace SyrtisClient\Entity;
-
-class {$className} extends AbstractApiEntity
-{
-}
-
-PHP;
+    return str_replace('{{CLASS_NAME}}', $className, $template);
 }
