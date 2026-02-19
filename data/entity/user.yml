@@ -2,28 +2,41 @@ name: user
 properties:
   -
     name: username
+    type: mixed
+    default: null
+  -
+    name: id
+    type: mixed
+    default: null
+  -
+    name: secureId
     type: string
-    nullable: true
   -
     name: dateCreated
-    type: datetime
-    nullable: true
+    type: DateTimeInterface
+    default: null
   -
     name: dateLastLogin
-    type: datetime
-    nullable: true
+    type: DateTimeInterface
+    default: null
   -
     name: email
     type: string
-    nullable: true
+    default: null
   -
-    name: firstName
+    name: password
     type: string
-    nullable: true
+    default: null
   -
-    name: lastName
+    name: first_name
     type: string
-    nullable: true
+    default: null
+  -
+    name: last_name
+    type: string
+    default: null
   -
     name: roles
     type: array
+    default: {  }
+visibility: public
