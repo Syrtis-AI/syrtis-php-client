@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
-use SyrtisClient\Repository\ScenarioRepository;
-use SyrtisClient\Repository\SessionRepository;
-use SyrtisClient\Repository\UserRepository;
 use SyrtisClient\Entity\User;
 use SyrtisClient\Response\LoginResponse;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
@@ -50,11 +47,41 @@ class SyrtisClient extends AbstractApiEntitiesClient
 
     protected function getRepositoryClasses(): array
     {
-        return [
-            ScenarioRepository::class,
-            SessionRepository::class,
-            UserRepository::class,
-        ];
+        return $this->discoverRepositoryClasses(
+            dirname(__DIR__),
+            'SyrtisClient\\Repository'
+        );
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function discoverRepositoryClasses(
+        string $srcDir,
+        string $repositoryNamespace
+    ): array {
+        $repositoryDir = rtrim($srcDir, '/\\') . '/Repository';
+        if (! is_dir($repositoryDir)) {
+            return [];
+        }
+
+        $files = glob($repositoryDir . '/*Repository.php') ?: [];
+        sort($files);
+
+        $classes = [];
+        foreach ($files as $filePath) {
+            $fileName = pathinfo($filePath, PATHINFO_FILENAME);
+            if (! str_ends_with($fileName, 'Repository')) {
+                continue;
+            }
+
+            $className = $repositoryNamespace . '\\' . $fileName;
+            if (class_exists($className)) {
+                $classes[] = $className;
+            }
+        }
+
+        return array_values(array_unique($classes));
     }
 
     /**
