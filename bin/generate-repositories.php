@@ -3,21 +3,18 @@
 
 declare(strict_types=1);
 
-// IMPORTANT: keep this script in sync with php-client-internal/bin/generate-entities.php.
-// Any improvement here must be mirrored there.
-
 $rootDir = dirname(__DIR__);
 $dataDir = $rootDir . '/data/entity';
-$entityDir = $rootDir . '/src/Entity';
-$templatePath = $rootDir . '/bin/template/Entity.php.tpl';
+$repositoryDir = $rootDir . '/src/Repository';
+$templatePath = $rootDir . '/bin/template/Repository.php.tpl';
 
 if (! is_dir($dataDir)) {
     fwrite(STDERR, "Error: missing data directory: {$dataDir}\n");
     exit(1);
 }
 
-if (! is_dir($entityDir) && ! mkdir($entityDir, 0775, true) && ! is_dir($entityDir)) {
-    fwrite(STDERR, "Error: cannot create entity directory: {$entityDir}\n");
+if (! is_dir($repositoryDir) && ! mkdir($repositoryDir, 0775, true) && ! is_dir($repositoryDir)) {
+    fwrite(STDERR, "Error: cannot create repository directory: {$repositoryDir}\n");
     exit(1);
 }
 
@@ -47,14 +44,14 @@ foreach ($files as $filePath) {
         continue;
     }
 
-    $targetPath = $entityDir . '/' . $className . '.php';
+    $targetPath = $repositoryDir . '/' . $className . 'Repository.php';
 
     if (is_file($targetPath)) {
         $skipped++;
         continue;
     }
 
-    $content = buildEntityClass($template, $className);
+    $content = buildRepositoryClass($template, $className);
     file_put_contents($targetPath, $content);
     $created++;
     echo "Created {$targetPath}\n";
@@ -77,7 +74,7 @@ function toStudlyCase(string $value): string
     return str_replace(' ', '', ucwords($value));
 }
 
-function buildEntityClass(string $template, string $className): string
+function buildRepositoryClass(string $template, string $className): string
 {
     return str_replace('{{CLASS_NAME}}', $className, $template);
 }
