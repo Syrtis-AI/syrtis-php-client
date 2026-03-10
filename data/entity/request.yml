@@ -154,7 +154,7 @@ properties:
           referenced_column_name: id
           nullable: true
           unique: false
-          on_delete: null
+          on_delete: CASCADE
   -
     name: session
     type: relation
@@ -338,7 +338,7 @@ orm:
           referenced_column_name: id
           nullable: true
           unique: false
-          on_delete: null
+          on_delete: CASCADE
     session:
       kind: association
       association_type: many_to_one
