@@ -13,30 +13,6 @@ properties:
       id: true
       generated: false
   -
-    name: session
-    type: relation
-    nullable: true
-    default: null
-    target: session
-    orm:
-      kind: association
-      association_type: many_to_one
-      target_entity: App\Entity\Session
-      target: session
-      mapped_by: null
-      inversed_by: null
-      is_owning_side: true
-      orphan_removal: false
-      cascade: {  }
-      fetch: 2
-      join_columns:
-        -
-          name: session_id
-          referenced_column_name: id
-          nullable: false
-          unique: false
-          on_delete: null
-  -
     name: status
     type: string
     orm:
@@ -61,30 +37,6 @@ properties:
       unique: false
       id: false
       generated: false
-  -
-    name: card
-    type: relation
-    nullable: true
-    default: null
-    target: card
-    orm:
-      kind: association
-      association_type: many_to_one
-      target_entity: App\Entity\Card
-      target: card
-      mapped_by: null
-      inversed_by: null
-      is_owning_side: true
-      orphan_removal: false
-      cascade: {  }
-      fetch: 2
-      join_columns:
-        -
-          name: card_id
-          referenced_column_name: id
-          nullable: false
-          unique: false
-          on_delete: null
   -
     name: children
     type: Doctrine\Common\Collections\Collection
@@ -179,6 +131,78 @@ properties:
       cascade:
         - remove
       fetch: 2
+  -
+    name: projection
+    type: relation
+    nullable: true
+    default: null
+    target: projection
+    orm:
+      kind: association
+      association_type: many_to_one
+      target_entity: App\Entity\Projection
+      target: projection
+      mapped_by: null
+      inversed_by: null
+      is_owning_side: true
+      orphan_removal: false
+      cascade: {  }
+      fetch: 2
+      join_columns:
+        -
+          name: projection_id
+          referenced_column_name: id
+          nullable: true
+          unique: false
+          on_delete: null
+  -
+    name: session
+    type: relation
+    nullable: true
+    default: null
+    target: session
+    orm:
+      kind: association
+      association_type: many_to_one
+      target_entity: App\Entity\Session
+      target: session
+      mapped_by: null
+      inversed_by: null
+      is_owning_side: true
+      orphan_removal: false
+      cascade: {  }
+      fetch: 2
+      join_columns:
+        -
+          name: session_id
+          referenced_column_name: id
+          nullable: true
+          unique: false
+          on_delete: null
+  -
+    name: card
+    type: relation
+    nullable: true
+    default: null
+    target: card
+    orm:
+      kind: association
+      association_type: many_to_one
+      target_entity: App\Entity\Card
+      target: card
+      mapped_by: null
+      inversed_by: null
+      is_owning_side: true
+      orphan_removal: false
+      cascade: {  }
+      fetch: 2
+      join_columns:
+        -
+          name: card_id
+          referenced_column_name: id
+          nullable: true
+          unique: false
+          on_delete: null
   -
     name: parent
     type: self
@@ -297,6 +321,60 @@ orm:
       cascade:
         - remove
       fetch: 2
+    projection:
+      kind: association
+      association_type: many_to_one
+      target_entity: App\Entity\Projection
+      target: projection
+      mapped_by: null
+      inversed_by: null
+      is_owning_side: true
+      orphan_removal: false
+      cascade: {  }
+      fetch: 2
+      join_columns:
+        -
+          name: projection_id
+          referenced_column_name: id
+          nullable: true
+          unique: false
+          on_delete: null
+    session:
+      kind: association
+      association_type: many_to_one
+      target_entity: App\Entity\Session
+      target: session
+      mapped_by: null
+      inversed_by: null
+      is_owning_side: true
+      orphan_removal: false
+      cascade: {  }
+      fetch: 2
+      join_columns:
+        -
+          name: session_id
+          referenced_column_name: id
+          nullable: true
+          unique: false
+          on_delete: null
+    card:
+      kind: association
+      association_type: many_to_one
+      target_entity: App\Entity\Card
+      target: card
+      mapped_by: null
+      inversed_by: null
+      is_owning_side: true
+      orphan_removal: false
+      cascade: {  }
+      fetch: 2
+      join_columns:
+        -
+          name: card_id
+          referenced_column_name: id
+          nullable: true
+          unique: false
+          on_delete: null
     parent:
       kind: association
       association_type: many_to_one
@@ -315,42 +393,6 @@ orm:
           nullable: true
           unique: false
           on_delete: 'SET NULL'
-    session:
-      kind: association
-      association_type: many_to_one
-      target_entity: App\Entity\Session
-      target: session
-      mapped_by: null
-      inversed_by: null
-      is_owning_side: true
-      orphan_removal: false
-      cascade: {  }
-      fetch: 2
-      join_columns:
-        -
-          name: session_id
-          referenced_column_name: id
-          nullable: false
-          unique: false
-          on_delete: null
-    card:
-      kind: association
-      association_type: many_to_one
-      target_entity: App\Entity\Card
-      target: card
-      mapped_by: null
-      inversed_by: null
-      is_owning_side: true
-      orphan_removal: false
-      cascade: {  }
-      fetch: 2
-      join_columns:
-        -
-          name: card_id
-          referenced_column_name: id
-          nullable: false
-          unique: false
-          on_delete: null
     children:
       kind: association
       association_type: one_to_many
