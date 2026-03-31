@@ -6,5 +6,4 @@ namespace SyrtisClient\Entity;
 
 class Session extends AbstractApiEntity
 {
-
 }

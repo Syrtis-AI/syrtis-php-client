@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace SyrtisClient\Response;
 
 use SyrtisClient\Entity\User;
+use SyrtisClient\Repository\UserRepository;
 use SyrtisClientInternal\Entity\UserConfig;
 use SyrtisClientInternal\Repository\UserConfigRepository;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
-use SyrtisClient\Repository\UserRepository;
 
 class LoginResponse
 {
