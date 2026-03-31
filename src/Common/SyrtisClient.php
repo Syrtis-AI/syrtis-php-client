@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
-use SyrtisClient\Repository\ScenarioRepository;
-use SyrtisClient\Repository\SessionRepository;
-use SyrtisClient\Repository\UserRepository;
+use SyrtisClient\Entity\User;
+use SyrtisClient\Response\LoginResponse;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
+use Wexample\PhpApi\Const\HttpMethod;
 
 /**
  * Minimal Syrtis API client built on top of Guzzle.
@@ -20,12 +20,14 @@ use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 class SyrtisClient extends AbstractApiEntitiesClient
 {
     public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai/api/';
+    protected ?array $entitySchemas = null;
 
     public function __construct(
         string $baseUrl,
         ?string $apiKey = null,
         ?ClientInterface $httpClient = null,
         array $defaultHeaders = [],
+        bool $debugEnabled = false,
     )
     {
         parent::__construct(
@@ -35,6 +37,8 @@ class SyrtisClient extends AbstractApiEntitiesClient
             $defaultHeaders
         );
 
+        $this->setDebugEnabled($debugEnabled);
+
         $this->setDefaultHeader(
             'Content-Type',
             'application/json'
@@ -43,10 +47,84 @@ class SyrtisClient extends AbstractApiEntitiesClient
 
     protected function getRepositoryClasses(): array
     {
+        return $this->discoverRepositoryClasses(
+            dirname(__DIR__),
+            'SyrtisClient\\Repository'
+        );
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function discoverRepositoryClasses(
+        string $srcDir,
+        string $repositoryNamespace
+    ): array {
+        $repositoryDir = rtrim($srcDir, '/\\') . '/Repository';
+        if (! is_dir($repositoryDir)) {
+            return [];
+        }
+
+        $files = glob($repositoryDir . '/*Repository.php') ?: [];
+        sort($files);
+
+        $classes = [];
+        foreach ($files as $filePath) {
+            $fileName = pathinfo($filePath, PATHINFO_FILENAME);
+            if (! str_ends_with($fileName, 'Repository')) {
+                continue;
+            }
+
+            $className = $repositoryNamespace . '\\' . $fileName;
+            if (class_exists($className)) {
+                $classes[] = $className;
+            }
+        }
+
+        return array_values(array_unique($classes));
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getEntitySchemaDirectories(): array
+    {
         return [
-            ScenarioRepository::class,
-            SessionRepository::class,
-            UserRepository::class,
+            dirname(__DIR__, 2) . '/data/entity',
         ];
+    }
+
+    /**
+     * @return array<string, array>
+     */
+    public function getEntitySchemas(): array
+    {
+        if ($this->entitySchemas !== null) {
+            return $this->entitySchemas;
+        }
+
+        $loader = new EntitySchemaLoader();
+        $this->entitySchemas = $loader->load($this->getEntitySchemaDirectories());
+
+        return $this->entitySchemas;
+    }
+
+    public function login(string $login, string $password): LoginResponse
+    {
+        $response = $this->requestJson(
+            HttpMethod::POST,
+            'auth/login',
+            [
+                'json' => [
+                    'login' => $login,
+                    'password' => $password,
+                ],
+            ]
+        );
+
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->getRepository(User::class);
+
+        return new LoginResponse($response, $this);
     }
 }

@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace SyrtisClient\Entity;
 
-class Session extends AbstractApiEntity
+class Request extends \SyrtisClient\Entity\AbstractApiEntity
 {
 }
