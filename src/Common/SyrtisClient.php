@@ -19,7 +19,12 @@ use Wexample\PhpApi\Const\HttpMethod;
  */
 class SyrtisClient extends AbstractApiEntitiesClient
 {
-    public const string DEFAULT_BASE_URL = 'https://api.syrtis.ai/api/';
+    public const string API_VERSION_2025_3 = '2025-3';
+    public const string API_VERSION_2026_1 = '2026-1';
+    public const string API_VERSION_DEFAULT = self::API_VERSION_2026_1;
+
+    public const string BASE_URL = 'https://api.syrtis.ai/api/';
+    public const string DEFAULT_BASE_URL = self::BASE_URL . self::API_VERSION_DEFAULT . '/';
     protected ?array $entitySchemas = null;
 
     public function __construct(
