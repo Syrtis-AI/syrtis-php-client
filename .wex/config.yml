@@ -1,11 +1,12 @@
+git:
+  publication_strategy: main_push
 global:
   authors:
     email: contact@syrtis.ai
     name: weeger
   name: php_client
   vendor: syrtis
-  version: 0.0.30
+  version: 0.0.31
 wex:
-  version: 6.0.89
-git:
-  publication_strategy: main_push
+  migration: 1
+  version: 6.0.90

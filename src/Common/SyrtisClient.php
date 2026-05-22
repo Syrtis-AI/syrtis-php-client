@@ -33,8 +33,7 @@ class SyrtisClient extends AbstractApiEntitiesClient
         ?ClientInterface $httpClient = null,
         array $defaultHeaders = [],
         bool $debugEnabled = false,
-    )
-    {
+    ) {
         parent::__construct(
             $baseUrl ?: self::DEFAULT_BASE_URL,
             $apiKey,
