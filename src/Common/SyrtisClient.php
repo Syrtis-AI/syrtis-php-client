@@ -23,19 +23,21 @@ class SyrtisClient extends AbstractApiEntitiesClient
     public const string API_VERSION_2026_1 = '2026-1';
     public const string API_VERSION_DEFAULT = self::API_VERSION_2026_1;
 
-    public const string BASE_URL = 'https://api.syrtis.ai/api/';
-    public const string DEFAULT_BASE_URL = self::BASE_URL . self::API_VERSION_DEFAULT . '/';
     protected ?array $entitySchemas = null;
 
     public function __construct(
-        string $baseUrl,
+        string $host,
+        ?string $apiVersion = null,
         ?string $apiKey = null,
         ?ClientInterface $httpClient = null,
         array $defaultHeaders = [],
         bool $debugEnabled = false,
     ) {
+        $version = $apiVersion ?? self::API_VERSION_DEFAULT;
+        $normalizedHost = rtrim($host, '/') . '/';
+
         parent::__construct(
-            $baseUrl ?: self::DEFAULT_BASE_URL,
+            $normalizedHost . 'api/' . $version . '/',
             $apiKey,
             $httpClient,
             $defaultHeaders
