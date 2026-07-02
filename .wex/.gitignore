@@ -1,6 +1,6 @@
-/tmp
 .env
-local/
 /.env
-/tmp/
 /local/
+/tmp
+/tmp/
+local/
