@@ -1,4 +1,6 @@
 git:
+  # Public package: publish to github so Packagist picks up new versions.
+  main_deployment_remote_name: github
   publication_strategy: main_push
 global:
   authors:
