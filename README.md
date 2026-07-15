@@ -1,6 +1,6 @@
 # php_client
 
-Version: 2.0.0
+Version: 2.0.1
 
 PHP client library for interacting with Syrtis services and APIs.
 
