@@ -13,4 +13,12 @@ class MessageRepository extends AbstractApiRepository
     {
         return Message::class;
     }
+
+    /**
+     * @return Message[]
+     */
+    public function hydrateFromApiCollection(array $items): array
+    {
+        return $this->createFromApiCollection($items);
+    }
 }

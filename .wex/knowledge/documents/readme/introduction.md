@@ -1,0 +1,1 @@
+PHP client for the Syrtis public API: sessions, conversational messages (sync mode supported), history and entity hydration. It targets the versioned API (`2026-1` by default) and carries no server secret — authentication uses a bearer token; scoped Mercure subscriber JWTs can be fetched and served to frontends consuming live updates.
