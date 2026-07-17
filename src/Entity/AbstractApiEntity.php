@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace SyrtisClient\Entity;
 
-use Wexample\Helpers\Class\Traits\HasSnakeShortClassNameClassTrait;
+use Wexample\Helpers\Helper\ClassHelper;
 
 abstract class AbstractApiEntity extends \Wexample\PhpApi\Common\AbstractApiEntity
 {
-    use HasSnakeShortClassNameClassTrait;
-
+    /**
+     * Entity names follow the API wire contract, which is camelCase
+     * throughout — an item's "type" included (UserConfig -> "userConfig").
+     */
     public static function getEntityName(): string
     {
-        return static::getSnakeShortClassName();
+        return ClassHelper::getFieldName(static::class);
     }
 }

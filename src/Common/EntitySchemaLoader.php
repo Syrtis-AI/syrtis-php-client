@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SyrtisClient\Common;
 
 use Symfony\Component\Yaml\Yaml;
+use Wexample\Helpers\Helper\TextHelper;
 
 class EntitySchemaLoader
 {
@@ -37,11 +38,42 @@ class EntitySchemaLoader
                     continue;
                 }
 
+                $schema = $this->normalizeSchemaNaming($schema);
+                $name = $schema['name'];
+
                 $schemas[$name] = $this->mergeSchema($schemas[$name] ?? [], $schema);
             }
         }
 
         return $schemas;
+    }
+
+    /**
+     * Schema files are generated from the registry, which names entities the
+     * ORM way (snake_case tables: user_config); entity names follow the API
+     * wire contract (camelCase: userConfig). Translating at read time keeps
+     * the gap inside this loader — everything downstream, from schema lookup
+     * to relationship targets, speaks entity names only.
+     *
+     * The nested `orm` block is left untouched: it describes the database,
+     * not the API.
+     */
+    private function normalizeSchemaNaming(array $schema): array
+    {
+        $schema['name'] = TextHelper::toCamel($schema['name']);
+
+        foreach ($schema['properties'] ?? [] as $index => $property) {
+            if (! is_array($property)) {
+                continue;
+            }
+
+            $target = $property['target'] ?? null;
+            if (is_string($target) && $target !== '') {
+                $schema['properties'][$index]['target'] = TextHelper::toCamel($target);
+            }
+        }
+
+        return $schema;
     }
 
     private function mergeSchema(array $base, array $override): array
