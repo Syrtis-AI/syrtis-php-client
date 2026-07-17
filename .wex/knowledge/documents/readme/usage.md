@@ -159,6 +159,8 @@ HTTP-level failures (4xx/5xx, transport) still raise `ApiException`.
 
 Hydration is strict by design: a response field absent from the entity schema, a malformed API item, a type mismatch or an unregistered relationship type throws an `ApiSchemaException` (`Wexample\PhpApi\Exceptions\ApiSchemaException`, `getErrorCode()` returning an `ERR_SCHEMA_*` constant, plus `getEntityName()`/`getField()`). A contract drift is caught at the boundary instead of silently losing data.
 
+API item types are camelCase on the wire (`userConfig`, `messageStamp`) — as is the whole 2026 contract — while entity names are snake_case here (`user_config`); the translation is internal, so error messages quote types the way the API spells them.
+
 ## Design rules
 
 - No client-side field validation: payloads are sent as-is, the API is the validator.
