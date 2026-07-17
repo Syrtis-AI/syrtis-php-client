@@ -133,9 +133,11 @@ $info = $sessionRepository->fetchSubscribeInfo($sessionSecureId);
 
 $info->getHubUrl();    // Mercure hub public URL
 $info->getJwt();       // subscriber JWT scoped to this session's topics
-$info->getTopics();    // e.g. ['entity/session/event/{secureId}']
+$info->getTopics();    // includes '{apiVersion}/entity/session/event/{secureId}'
 $info->getExpiresAt(); // ISO8601 — fetch a fresh one before expiration
 ```
+
+Frontends should listen to the versioned topic (`{apiVersion}/` prefix, see `$client->getApiVersion()`): its events carry `{event, data}` where `data` is the standard API item `{type, entity, metadata, relationships}`, identical to REST responses. The payload is strictly validated: all four fields are required, or an `ApiEnvelopeException` is thrown.
 
 ## Error handling
 
@@ -154,6 +156,8 @@ try {
 ```
 
 HTTP-level failures (4xx/5xx, transport) still raise `ApiException`.
+
+Hydration is strict by design: a response field absent from the entity schema, a malformed API item, a type mismatch or an unregistered relationship type throws an `ApiSchemaException` (`Wexample\PhpApi\Exceptions\ApiSchemaException`, `getErrorCode()` returning an `ERR_SCHEMA_*` constant, plus `getEntityName()`/`getField()`). A contract drift is caught at the boundary instead of silently losing data.
 
 ## Design rules
 

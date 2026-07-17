@@ -17,7 +17,7 @@ final class SessionSubscribeInfo
         private readonly string $hubUrl,
         private readonly string $jwt,
         private readonly array $topics,
-        private readonly ?string $expiresAt,
+        private readonly string $expiresAt,
     ) {
     }
 
@@ -39,7 +39,7 @@ final class SessionSubscribeInfo
         return $this->topics;
     }
 
-    public function getExpiresAt(): ?string
+    public function getExpiresAt(): string
     {
         return $this->expiresAt;
     }

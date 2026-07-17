@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
-use SyrtisClient\Entity\User;
 use SyrtisClient\Response\LoginResponse;
 use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
 use Wexample\PhpApi\Const\HttpMethod;
 
 /**
- * Minimal Syrtis API client built on top of Guzzle.
+ * Syrtis API client built on top of Guzzle.
  *
  * @example
- * $client = new Client('https://api.syrtis.ai', 'api-key-here');
- * $response = $client->get('/v1/things', ['query' => ['page' => 1]]);
+ * $client = new SyrtisClient(host: 'https://api.syrtis.ai', apiKey: 'api-key-here');
+ * $sessions = $client->getRepository(Session::class);
  */
 class SyrtisClient extends AbstractApiEntitiesClient
 {
@@ -24,6 +23,8 @@ class SyrtisClient extends AbstractApiEntitiesClient
     public const string API_VERSION_DEFAULT = self::API_VERSION_2026_1;
 
     protected ?array $entitySchemas = null;
+
+    private readonly string $apiVersion;
 
     public function __construct(
         string $host,
@@ -43,12 +44,23 @@ class SyrtisClient extends AbstractApiEntitiesClient
             $defaultHeaders
         );
 
+        $this->apiVersion = $version;
+
         $this->setDebugEnabled($debugEnabled);
 
         $this->setDefaultHeader(
             'Content-Type',
             'application/json'
         );
+    }
+
+    /**
+     * Version segment of every API path — also prefixes the versioned
+     * Mercure topics ({apiVersion}/entity/session/event/{secureId}).
+     */
+    public function getApiVersion(): string
+    {
+        return $this->apiVersion;
     }
 
     protected function getRepositoryClasses(): array
@@ -127,9 +139,6 @@ class SyrtisClient extends AbstractApiEntitiesClient
                 ],
             ]
         );
-
-        /** @var UserRepository $userRepository */
-        $userRepository = $this->getRepository(User::class);
 
         return new LoginResponse($response, $this);
     }

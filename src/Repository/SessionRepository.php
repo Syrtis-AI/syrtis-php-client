@@ -139,7 +139,9 @@ class SessionRepository extends AbstractApiRepository
 
     /**
      * Fetches a scoped, short-lived Mercure subscriber JWT for this session,
-     * typically served to a frontend consuming live updates.
+     * typically served to a frontend consuming live updates. Topics include
+     * the versioned one ({apiVersion}/entity/session/event/{secureId}) —
+     * the 2026 payload format frontends should listen to.
      */
     public function fetchSubscribeInfo(string $sessionSecureId): SessionSubscribeInfo
     {
@@ -152,21 +154,31 @@ class SessionRepository extends AbstractApiRepository
 
         $hubUrl = $payload['hubUrl'] ?? null;
         $jwt = $payload['jwt'] ?? null;
+        $topics = $payload['topics'] ?? null;
+        $expiresAt = $payload['expiresAt'] ?? null;
 
-        if (! is_string($hubUrl) || ! is_string($jwt)) {
+        $topicsAreValid = is_array($topics) && $topics !== [];
+        if ($topicsAreValid) {
+            foreach ($topics as $topic) {
+                if (! is_string($topic) || $topic === '') {
+                    $topicsAreValid = false;
+                    break;
+                }
+            }
+        }
+
+        if (! is_string($hubUrl) || ! is_string($jwt) || ! $topicsAreValid || ! is_string($expiresAt)) {
             throw new ApiEnvelopeException(
-                message: 'Invalid subscribe-info payload: missing "hubUrl" or "jwt".',
+                message: 'Invalid subscribe-info payload: expected {hubUrl, jwt, topics[], expiresAt}.',
                 envelope: $response,
             );
         }
 
-        $expiresAt = $payload['expiresAt'] ?? null;
-
         return new SessionSubscribeInfo(
             hubUrl: $hubUrl,
             jwt: $jwt,
-            topics: is_array($payload['topics'] ?? null) ? $payload['topics'] : [],
-            expiresAt: is_string($expiresAt) ? $expiresAt : null,
+            topics: array_values($topics),
+            expiresAt: $expiresAt,
         );
     }
 
