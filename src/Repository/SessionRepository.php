@@ -162,6 +162,7 @@ class SessionRepository extends AbstractApiRepository
             foreach ($topics as $topic) {
                 if (! is_string($topic) || $topic === '') {
                     $topicsAreValid = false;
+
                     break;
                 }
             }

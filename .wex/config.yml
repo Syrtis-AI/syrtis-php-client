@@ -7,7 +7,7 @@ global:
     name: weeger
   name: php_client
   vendor: syrtis
-  version: 3.0.0
+  version: 4.0.0
 wex:
   migration: 1
   version: 6.0.112
