@@ -6,7 +6,7 @@ namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
 use SyrtisClient\Response\LoginResponse;
-use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
+use Wexample\PhpApiEntity\Common\AbstractApiEntitiesClient;
 use Wexample\PhpApi\Const\HttpMethod;
 
 /**

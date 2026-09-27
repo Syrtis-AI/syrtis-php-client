@@ -8,9 +8,9 @@ use SyrtisClient\Entity\Message;
 use SyrtisClient\Entity\Session;
 use SyrtisClient\Response\SessionHistory;
 use SyrtisClient\Response\SessionSubscribeInfo;
-use Wexample\PhpApi\Common\AbstractApiRepository;
+use Wexample\PhpApiEntity\Common\AbstractApiRepository;
 use Wexample\PhpApi\Const\HttpMethod;
-use Wexample\PhpApi\Exceptions\ApiEnvelopeException;
+use Wexample\PhpApiEntity\Exceptions\ApiEnvelopeException;
 
 class SessionRepository extends AbstractApiRepository
 {

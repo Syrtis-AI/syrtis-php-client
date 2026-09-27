@@ -141,10 +141,10 @@ Frontends should listen to the versioned topic (`{apiVersion}/` prefix, see `$cl
 
 ## Error handling
 
-All API responses use the standard envelope `{type, code, message?, data}`. Unwrapping is centralized in `wexample/php-api`: when the server answers `type: 'error'`, repository calls throw an `ApiEnvelopeException` carrying the server error key.
+All API responses use the standard envelope `{type, code, message?, data}`. Unwrapping is centralized in `wexample/php-api-entity`: when the server answers `type: 'error'`, repository calls throw an `ApiEnvelopeException` carrying the server error key.
 
 ```php
-use Wexample\PhpApi\Exceptions\ApiEnvelopeException;
+use Wexample\PhpApiEntity\Exceptions\ApiEnvelopeException;
 
 try {
     $sessionRepository->sendMessage(sessionSecureId: $id, content: 'Hello', sync: true);
@@ -157,7 +157,7 @@ try {
 
 HTTP-level failures (4xx/5xx, transport) still raise `ApiException`.
 
-Hydration is strict by design: a response field absent from the entity schema, a malformed API item, a type mismatch or an unregistered relationship type throws an `ApiSchemaException` (`Wexample\PhpApi\Exceptions\ApiSchemaException`, `getErrorCode()` returning an `ERR_SCHEMA_*` constant, plus `getEntityName()`/`getField()`). A contract drift is caught at the boundary instead of silently losing data.
+Hydration is strict by design: a response field absent from the entity schema, a malformed API item, a type mismatch or an unregistered relationship type throws an `ApiSchemaException` (`Wexample\PhpApiEntity\Exceptions\ApiSchemaException`, `getErrorCode()` returning an `ERR_SCHEMA_*` constant, plus `getEntityName()`/`getField()`). A contract drift is caught at the boundary instead of silently losing data.
 
 An API item's `type` is the entity name, camelCase like the whole 2026 contract (`message`, `messageStamp`, `userConfig`) — the same identifier keys the repository registry, so there is no translation anywhere. Routes derive from it in kebab-case (`messageStamp` → `message-stamp/...`). Generated schema files still name entities the registry way (`user_config.yml`, mirroring the ORM tables); `EntitySchemaLoader` translates that to entity names at read time, so nothing downstream sees snake_case.
 

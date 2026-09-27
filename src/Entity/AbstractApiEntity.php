@@ -6,7 +6,7 @@ namespace SyrtisClient\Entity;
 
 use Wexample\Helpers\Helper\ClassHelper;
 
-abstract class AbstractApiEntity extends \Wexample\PhpApi\Common\AbstractApiEntity
+abstract class AbstractApiEntity extends \Wexample\PhpApiEntity\Common\AbstractApiEntity
 {
     /**
      * Entity names follow the API wire contract, which is camelCase

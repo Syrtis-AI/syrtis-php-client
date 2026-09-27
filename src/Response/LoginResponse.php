@@ -8,7 +8,7 @@ use SyrtisClient\Entity\User;
 use SyrtisClient\Repository\UserRepository;
 use SyrtisClientInternal\Entity\UserConfig;
 use SyrtisClientInternal\Repository\UserConfigRepository;
-use Wexample\PhpApi\Common\AbstractApiEntitiesClient;
+use Wexample\PhpApiEntity\Common\AbstractApiEntitiesClient;
 
 class LoginResponse
 {

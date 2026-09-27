@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SyrtisClient\Repository;
 
 use SyrtisClient\Entity\User;
-use Wexample\PhpApi\Common\AbstractApiRepository;
+use Wexample\PhpApiEntity\Common\AbstractApiRepository;
 
 class UserRepository extends AbstractApiRepository
 {
