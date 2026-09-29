@@ -6,8 +6,8 @@ namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
 use SyrtisClient\Response\LoginResponse;
-use Wexample\PhpApiEntity\Common\AbstractApiEntitiesClient;
 use Wexample\PhpApi\Const\HttpMethod;
+use Wexample\PhpApiEntity\Common\AbstractApiEntitiesClient;
 
 /**
  * Syrtis API client built on top of Guzzle.
