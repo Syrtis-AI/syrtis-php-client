@@ -1,18 +1,6 @@
 name: slot
 properties:
   -
-    name: id
-    type: mixed
-    default: null
-    orm:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
-  -
     name: type
     type: string
     nullable: true
@@ -52,6 +40,18 @@ properties:
       id: false
       generated: false
       length: 255
+  -
+    name: id
+    type: Symfony\Component\Uid\Uuid
+    orm:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
+    default: null
   -
     name: job
     type: relation
@@ -222,14 +222,6 @@ orm:
       unique: false
       id: false
       generated: false
-    id:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
     type:
       kind: field
       column: type
@@ -257,6 +249,14 @@ orm:
       id: false
       generated: false
       length: 255
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
   associations:
     job:
       kind: association

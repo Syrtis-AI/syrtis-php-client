@@ -2,16 +2,16 @@ name: slot_relation
 properties:
   -
     name: id
-    type: mixed
-    default: null
+    type: Symfony\Component\Uid\Uuid
     orm:
       kind: field
       column: id
-      type: integer
+      type: uuid
       nullable: false
-      unique: false
+      unique: true
       id: true
       generated: false
+    default: null
   -
     name: slotSource
     type: relation
@@ -117,9 +117,9 @@ orm:
     id:
       kind: field
       column: id
-      type: integer
+      type: uuid
       nullable: false
-      unique: false
+      unique: true
       id: true
       generated: false
   associations:

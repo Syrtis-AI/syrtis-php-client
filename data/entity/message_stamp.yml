@@ -1,18 +1,6 @@
 name: message_stamp
 properties:
   -
-    name: id
-    type: mixed
-    default: null
-    orm:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
-  -
     name: name
     type: string
     nullable: true
@@ -38,6 +26,18 @@ properties:
       id: false
       generated: false
       length: 255
+  -
+    name: id
+    type: Symfony\Component\Uid\Uuid
+    orm:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
+    default: null
   -
     name: message
     type: relation
@@ -70,14 +70,6 @@ orm:
   indexes: {  }
   unique_constraints: {  }
   fields:
-    id:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
     name:
       kind: field
       column: name
@@ -96,6 +88,14 @@ orm:
       id: false
       generated: false
       length: 255
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
   associations:
     message:
       kind: association

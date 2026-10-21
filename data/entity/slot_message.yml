@@ -1,18 +1,6 @@
 name: slot_message
 properties:
   -
-    name: id
-    type: mixed
-    default: null
-    orm:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
-  -
     name: position
     type: int
     nullable: true
@@ -117,19 +105,19 @@ properties:
       generated: false
       length: 4
   -
-    name: name
+    name: format
     type: string
     nullable: true
     default: null
     orm:
       kind: field
-      column: name
+      column: format
       type: string
       nullable: true
       unique: false
       id: false
       generated: false
-      length: 255
+      length: 120
   -
     name: contentType
     type: string
@@ -145,19 +133,19 @@ properties:
       generated: false
       length: 30
   -
-    name: format
+    name: name
     type: string
     nullable: true
     default: null
     orm:
       kind: field
-      column: format
+      column: name
       type: string
       nullable: true
       unique: false
       id: false
       generated: false
-      length: 120
+      length: 255
   -
     name: max
     type: int
@@ -171,6 +159,18 @@ properties:
       unique: false
       id: false
       generated: false
+  -
+    name: id
+    type: Symfony\Component\Uid\Uuid
+    orm:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
+    default: null
   -
     name: slot
     type: relation
@@ -293,14 +293,6 @@ orm:
       id: false
       generated: false
       length: 60
-    id:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
     position:
       kind: field
       column: position
@@ -353,6 +345,22 @@ orm:
       id: false
       generated: false
       length: 4
+    max:
+      kind: field
+      column: max
+      type: integer
+      nullable: true
+      unique: false
+      id: false
+      generated: false
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
     name:
       kind: field
       column: name
@@ -380,14 +388,6 @@ orm:
       id: false
       generated: false
       length: 120
-    max:
-      kind: field
-      column: max
-      type: integer
-      nullable: true
-      unique: false
-      id: false
-      generated: false
   associations:
     slot:
       kind: association

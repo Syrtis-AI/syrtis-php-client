@@ -1,18 +1,6 @@
 name: request
 properties:
   -
-    name: id
-    type: mixed
-    default: null
-    orm:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
-  -
     name: status
     type: string
     orm:
@@ -37,6 +25,29 @@ properties:
       unique: false
       id: false
       generated: false
+  -
+    name: parent
+    type: self
+    nullable: true
+    default: null
+    orm:
+      kind: association
+      association_type: many_to_one
+      target_entity: App\Entity\Request
+      target: request
+      mapped_by: null
+      inversed_by: children
+      is_owning_side: true
+      orphan_removal: false
+      cascade: {  }
+      fetch: 2
+      join_columns:
+        -
+          name: parent_id
+          referenced_column_name: id
+          nullable: true
+          unique: false
+          on_delete: 'SET NULL'
   -
     name: children
     type: Doctrine\Common\Collections\Collection
@@ -114,6 +125,18 @@ properties:
           nullable: false
           unique: false
           on_delete: null
+  -
+    name: id
+    type: Symfony\Component\Uid\Uuid
+    orm:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
+    default: null
   -
     name: messages
     type: collection
@@ -204,29 +227,6 @@ properties:
           unique: false
           on_delete: null
   -
-    name: parent
-    type: self
-    nullable: true
-    default: null
-    orm:
-      kind: association
-      association_type: many_to_one
-      target_entity: App\Entity\Request
-      target: request
-      mapped_by: null
-      inversed_by: children
-      is_owning_side: true
-      orphan_removal: false
-      cascade: {  }
-      fetch: 2
-      join_columns:
-        -
-          name: parent_id
-          referenced_column_name: id
-          nullable: true
-          unique: false
-          on_delete: 'SET NULL'
-  -
     name: lastEvent
     type: string
     nullable: true
@@ -257,14 +257,6 @@ orm:
       id: false
       generated: false
       length: 60
-    id:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
     status:
       kind: field
       column: status
@@ -307,6 +299,14 @@ orm:
       nullable: true
       unique: false
       id: false
+      generated: false
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
       generated: false
   associations:
     messages:

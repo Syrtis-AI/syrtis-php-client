@@ -1,18 +1,6 @@
 name: job
 properties:
   -
-    name: id
-    type: mixed
-    default: null
-    orm:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
-  -
     name: dateCreated
     type: DateTimeInterface
     nullable: true
@@ -26,11 +14,24 @@ properties:
       id: false
       generated: false
   -
-    name: user
-    type: relation
+    name: title
+    type: string
     nullable: true
     default: null
-    target: user
+    orm:
+      kind: field
+      column: title
+      type: string
+      nullable: true
+      unique: false
+      id: false
+      generated: false
+      length: 255
+  -
+    name: user
+    type: Wexample\SymfonyHelpers\Entity\Interfaces\UserEntityInterface
+    nullable: true
+    default: null
     orm:
       kind: association
       association_type: many_to_one
@@ -49,6 +50,7 @@ properties:
           nullable: false
           unique: false
           on_delete: null
+    target: user
   -
     name: secureId
     type: string
@@ -101,6 +103,18 @@ properties:
       id: false
       generated: false
   -
+    name: id
+    type: Symfony\Component\Uid\Uuid
+    orm:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
+    default: null
+  -
     name: scenario
     type: relation
     nullable: true
@@ -125,20 +139,6 @@ properties:
           unique: false
           on_delete: null
   -
-    name: title
-    type: string
-    nullable: true
-    default: null
-    orm:
-      kind: field
-      column: title
-      type: string
-      nullable: true
-      unique: false
-      id: false
-      generated: false
-      length: 255
-  -
     name: slots
     type: Collection
     orm:
@@ -161,23 +161,6 @@ orm:
   indexes: {  }
   unique_constraints: {  }
   fields:
-    title:
-      kind: field
-      column: title
-      type: string
-      nullable: true
-      unique: false
-      id: false
-      generated: false
-      length: 255
-    id:
-      kind: field
-      column: id
-      type: integer
-      nullable: false
-      unique: false
-      id: true
-      generated: false
     dateCreated:
       kind: field
       column: date_created
@@ -219,6 +202,23 @@ orm:
       unique: false
       id: false
       generated: false
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
+    title:
+      kind: field
+      column: title
+      type: string
+      nullable: true
+      unique: false
+      id: false
+      generated: false
+      length: 255
   associations:
     scenario:
       kind: association
