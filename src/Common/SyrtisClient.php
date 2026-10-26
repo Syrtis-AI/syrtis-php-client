@@ -56,7 +56,7 @@ class SyrtisClient extends AbstractApiEntitiesClient
 
     /**
      * Version segment of every API path — also prefixes the versioned
-     * Mercure topics ({apiVersion}/entity/session/event/{secureId}).
+     * Mercure topics ({apiVersion}/entity/session/event/{id}).
      */
     public function getApiVersion(): string
     {

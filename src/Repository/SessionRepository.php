@@ -140,7 +140,7 @@ class SessionRepository extends AbstractApiRepository
     /**
      * Fetches a scoped, short-lived Mercure subscriber JWT for this session,
      * typically served to a frontend consuming live updates. Topics include
-     * the versioned one ({apiVersion}/entity/session/event/{secureId}) —
+     * the versioned one ({apiVersion}/entity/session/event/{id}) —
      * the 2026 payload format frontends should listen to.
      */
     public function fetchSubscribeInfo(string $sessionSecureId): SessionSubscribeInfo
