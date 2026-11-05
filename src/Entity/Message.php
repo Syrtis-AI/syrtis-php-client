@@ -15,7 +15,6 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_ANALYSIS = 'core/analysis';
     final public const string CONTENT_TYPE_CONVERSATION = 'core/conversation';
     final public const string CONTENT_TYPE_DEBUG = 'core/debug';
-    final public const string CONTENT_TYPE_DEFAULT = 'core/default';
     final public const string CONTENT_TYPE_DOWNLOAD = 'core/download';
     final public const string CONTENT_TYPE_ERROR = 'core/error';
     final public const string CONTENT_TYPE_FORM = 'core/form';
@@ -27,7 +26,6 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_NAVIGATED = 'core/navigated';
     final public const string CONTENT_TYPE_PROGRESS = 'core/progress';
     final public const string CONTENT_TYPE_REFERENCE = 'core/reference';
-    final public const string CONTENT_TYPE_SESSION = 'core/session';
     final public const string CONTENT_TYPE_SESSION_EXPIRE = 'core/session_expire';
     final public const string CONTENT_TYPE_SESSION_STATUS = 'core/session_status';
     final public const string CONTENT_TYPE_SUCCESS = 'core/success';
@@ -36,6 +34,12 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_URL = 'core/url';
     final public const string CONTENT_TYPE_VIDEO = 'core/video';
     final public const string CONTENT_TYPE_WARNING = 'core/warning';
+    // The types of a message's shape alone, one by format.
+    final public const string CONTENT_TYPE_TEXT = 'core/text';
+    final public const string CONTENT_TYPE_MARKDOWN = 'core/markdown';
+    final public const string CONTENT_TYPE_HTML = 'core/html';
+    final public const string CONTENT_TYPE_YAML = 'core/yaml';
+    final public const string CONTENT_TYPE_JSON = 'core/json';
 
     final public const string FORMAT_BOOLEAN = 'boolean';
     final public const string FORMAT_FLOAT = 'float';
