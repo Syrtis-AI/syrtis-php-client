@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace SyrtisClient\Common;
 
 use GuzzleHttp\ClientInterface;
-use SyrtisClient\Response\LoginResponse;
-use Wexample\PhpApi\Const\HttpMethod;
 use Wexample\PhpApiEntity\Common\AbstractApiEntitiesClient;
 
 /**
@@ -77,21 +75,5 @@ class SyrtisClient extends AbstractApiEntitiesClient
         return [
             dirname(__DIR__, 2) . '/data/entity',
         ];
-    }
-
-    public function login(string $login, string $password): LoginResponse
-    {
-        $response = $this->requestJson(
-            HttpMethod::POST,
-            'auth/login',
-            [
-                'json' => [
-                    'login' => $login,
-                    'password' => $password,
-                ],
-            ]
-        );
-
-        return new LoginResponse($response, $this);
     }
 }
