@@ -22,8 +22,6 @@ class SyrtisClient extends AbstractApiEntitiesClient
     public const string API_VERSION_2026_1 = '2026-1';
     public const string API_VERSION_DEFAULT = self::API_VERSION_2026_1;
 
-    protected ?array $entitySchemas = null;
-
     private readonly string $apiVersion;
 
     public function __construct(
@@ -74,57 +72,11 @@ class SyrtisClient extends AbstractApiEntitiesClient
     /**
      * @return string[]
      */
-    protected function discoverRepositoryClasses(
-        string $srcDir,
-        string $repositoryNamespace
-    ): array {
-        $repositoryDir = rtrim($srcDir, '/\\') . '/Repository';
-        if (! is_dir($repositoryDir)) {
-            return [];
-        }
-
-        $files = glob($repositoryDir . '/*Repository.php') ?: [];
-        sort($files);
-
-        $classes = [];
-        foreach ($files as $filePath) {
-            $fileName = pathinfo($filePath, PATHINFO_FILENAME);
-            if (! str_ends_with($fileName, 'Repository')) {
-                continue;
-            }
-
-            $className = $repositoryNamespace . '\\' . $fileName;
-            if (class_exists($className)) {
-                $classes[] = $className;
-            }
-        }
-
-        return array_values(array_unique($classes));
-    }
-
-    /**
-     * @return string[]
-     */
     protected function getEntitySchemaDirectories(): array
     {
         return [
             dirname(__DIR__, 2) . '/data/entity',
         ];
-    }
-
-    /**
-     * @return array<string, array>
-     */
-    public function getEntitySchemas(): array
-    {
-        if ($this->entitySchemas !== null) {
-            return $this->entitySchemas;
-        }
-
-        $loader = new EntitySchemaLoader();
-        $this->entitySchemas = $loader->load($this->getEntitySchemaDirectories());
-
-        return $this->entitySchemas;
     }
 
     public function login(string $login, string $password): LoginResponse
