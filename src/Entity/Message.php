@@ -20,7 +20,7 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_FORM = 'core/form';
     final public const string CONTENT_TYPE_HTTP_RESPONSE = 'core/http_response';
     final public const string CONTENT_TYPE_IMAGE = 'core/image';
-    final public const string CONTENT_TYPE_INFO = 'core/info';
+    final public const string CONTENT_TYPE_INFO = 'web/info';
     final public const string CONTENT_TYPE_LIST = 'core/list';
     final public const string CONTENT_TYPE_NAVIGATE = 'core/navigate';
     final public const string CONTENT_TYPE_NAVIGATED = 'core/navigated';
@@ -28,7 +28,7 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_REFERENCE = 'core/reference';
     final public const string CONTENT_TYPE_SESSION_EXPIRE = 'core/session_expire';
     final public const string CONTENT_TYPE_SESSION_STATUS = 'core/session_status';
-    final public const string CONTENT_TYPE_SUCCESS = 'core/success';
+    final public const string CONTENT_TYPE_SUCCESS = 'web/success';
     final public const string CONTENT_TYPE_THOUGHT = 'core/thought';
     final public const string CONTENT_TYPE_UPLOAD = 'core/upload';
     final public const string CONTENT_TYPE_URL = 'core/url';
