@@ -46,7 +46,7 @@ class SessionRepository extends AbstractApiRepository
      * the same scenario request (one conversation turn). $content is a
      * shortcut for a first conversation/text message; $messages carries
      * the others (or all of them), each as an array accepting content,
-     * name, contentType, format, stamps and metadata.
+     * name, contentType, stamps and metadata.
      *
      * When $sync is true, the API holds the HTTP response until the whole
      * scenario processing is done, so the returned messages include the
@@ -192,7 +192,6 @@ class SessionRepository extends AbstractApiRepository
         return [
             'content' => $message['content'] ?? null,
             'contentType' => $message['contentType'] ?? Message::CONTENT_TYPE_CONVERSATION,
-            'format' => $message['format'] ?? Message::FORMAT_TEXT,
             'stamps' => $message['stamps'] ?? [],
             'metadata' => $message['metadata'] ?? null,
             'name' => $message['name'] ?? null,

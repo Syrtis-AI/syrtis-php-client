@@ -34,22 +34,13 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_URL = 'core/url';
     final public const string CONTENT_TYPE_VIDEO = 'core/video';
     final public const string CONTENT_TYPE_WARNING = 'core/warning';
-    // The types of a message's shape alone, one by format.
+    // The types of a message's shape alone: a text, a value as JSON.
     final public const string CONTENT_TYPE_TEXT = 'core/text';
     final public const string CONTENT_TYPE_MARKDOWN = 'core/markdown';
     final public const string CONTENT_TYPE_HTML = 'core/html';
     final public const string CONTENT_TYPE_YAML = 'core/yaml';
     final public const string CONTENT_TYPE_JSON = 'core/json';
 
-    final public const string FORMAT_BOOLEAN = 'boolean';
-    final public const string FORMAT_FLOAT = 'float';
-    final public const string FORMAT_HTML = 'html';
-    final public const string FORMAT_INTEGER = 'integer';
-    final public const string FORMAT_JSON = 'json';
-    final public const string FORMAT_MARKDOWN = 'markdown';
-    final public const string FORMAT_NULL = 'null';
-    final public const string FORMAT_TEXT = 'text';
-    final public const string FORMAT_YAML = 'yaml';
 
     public function getContent(): ?string
     {
@@ -61,13 +52,6 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     public function getContentType(): ?string
     {
         $value = $this->retrieveValue('contentType');
-
-        return is_string($value) ? $value : null;
-    }
-
-    public function getFormat(): ?string
-    {
-        $value = $this->retrieveValue('format');
 
         return is_string($value) ? $value : null;
     }
@@ -106,25 +90,26 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     }
 
     /**
-     * For JSON messages, the server already parses the content into
-     * metadata.formattedContent; falls back to decoding the raw content.
+     * The content as its type reads it: what the api read of it
+     * (`formattedContent`) when it came with the message; the JSON it encodes
+     * when it decodes, the text otherwise.
      */
     public function getParsedContent(): mixed
     {
-        if ($this->getFormat() !== self::FORMAT_JSON) {
-            return $this->getContent();
-        }
-
-        $formatted = $this->retrieveMetadata('formattedContent');
+        $formatted = $this->retrieveValue('formattedContent') ?? $this->retrieveMetadata('formattedContent');
         if ($formatted !== null) {
             return $formatted;
         }
 
         $content = $this->getContent();
-        if (is_string($content) && trim($content) !== '') {
-            return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+        if (! is_string($content)) {
+            return $content;
         }
 
-        return null;
+        try {
+            return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException) {
+            return $content;
+        }
     }
 }
