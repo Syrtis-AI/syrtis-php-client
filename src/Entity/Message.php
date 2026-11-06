@@ -11,9 +11,9 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string ORIGIN_NODE = 'node';
     final public const string ORIGIN_USER = 'user';
 
-    final public const string CONTENT_TYPE_ACTIONS = 'core/actions';
+    final public const string CONTENT_TYPE_ACTIONS = 'conversation/actions';
     final public const string CONTENT_TYPE_ANALYSIS = 'core/analysis';
-    final public const string CONTENT_TYPE_CONVERSATION = 'core/conversation';
+    final public const string CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
     final public const string CONTENT_TYPE_DEBUG = 'core/debug';
     final public const string CONTENT_TYPE_DOWNLOAD = 'core/download';
     final public const string CONTENT_TYPE_ERROR = 'core/error';
@@ -29,17 +29,17 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_SESSION_EXPIRE = 'core/session_expire';
     final public const string CONTENT_TYPE_SESSION_STATUS = 'core/session_status';
     final public const string CONTENT_TYPE_SUCCESS = 'web/success';
-    final public const string CONTENT_TYPE_THOUGHT = 'core/thought';
+    final public const string CONTENT_TYPE_THOUGHT = 'conversation/thought';
     final public const string CONTENT_TYPE_UPLOAD = 'core/upload';
     final public const string CONTENT_TYPE_URL = 'core/url';
     final public const string CONTENT_TYPE_VIDEO = 'core/video';
     final public const string CONTENT_TYPE_WARNING = 'core/warning';
     // The types of a message's shape alone: a text, a value as JSON.
-    final public const string CONTENT_TYPE_TEXT = 'core/text';
-    final public const string CONTENT_TYPE_MARKDOWN = 'core/markdown';
-    final public const string CONTENT_TYPE_HTML = 'core/html';
-    final public const string CONTENT_TYPE_YAML = 'core/yaml';
-    final public const string CONTENT_TYPE_JSON = 'core/json';
+    final public const string CONTENT_TYPE_TEXT = 'content/text';
+    final public const string CONTENT_TYPE_MARKDOWN = 'content/markdown';
+    final public const string CONTENT_TYPE_HTML = 'content/html';
+    final public const string CONTENT_TYPE_YAML = 'content/yaml';
+    final public const string CONTENT_TYPE_JSON = 'content/json';
 
 
     public function getContent(): ?string
@@ -77,7 +77,7 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     public function isReply(): bool
     {
         return $this->getOrigin() === self::ORIGIN_NODE
-            && $this->getContentType() === self::CONTENT_TYPE_CONVERSATION;
+            && $this->getContentType() === self::CONTENT_TYPE_CONVERSATION_MESSAGE;
     }
 
     /**
@@ -86,7 +86,7 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
      */
     public function isConversation(): bool
     {
-        return $this->getContentType() === self::CONTENT_TYPE_CONVERSATION;
+        return $this->getContentType() === self::CONTENT_TYPE_CONVERSATION_MESSAGE;
     }
 
     /**

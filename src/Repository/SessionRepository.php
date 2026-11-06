@@ -191,7 +191,7 @@ class SessionRepository extends AbstractApiRepository
     {
         return [
             'content' => $message['content'] ?? null,
-            'contentType' => $message['contentType'] ?? Message::CONTENT_TYPE_CONVERSATION,
+            'contentType' => $message['contentType'] ?? Message::CONTENT_TYPE_CONVERSATION_MESSAGE,
             'stamps' => $message['stamps'] ?? [],
             'metadata' => $message['metadata'] ?? null,
             'name' => $message['name'] ?? null,
