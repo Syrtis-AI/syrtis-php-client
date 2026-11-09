@@ -109,6 +109,14 @@ orm:
   indexes: {  }
   unique_constraints: {  }
   fields:
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
     content:
       kind: field
       column: content
@@ -124,14 +132,6 @@ orm:
       nullable: false
       unique: false
       id: false
-      generated: false
-    id:
-      kind: field
-      column: id
-      type: uuid
-      nullable: false
-      unique: true
-      id: true
       generated: false
   associations:
     document:

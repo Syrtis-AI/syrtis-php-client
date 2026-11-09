@@ -105,20 +105,6 @@ properties:
       generated: false
       length: 4
   -
-    name: format
-    type: string
-    nullable: true
-    default: null
-    orm:
-      kind: field
-      column: format
-      type: string
-      nullable: true
-      unique: false
-      id: false
-      generated: false
-      length: 120
-  -
     name: contentType
     type: string
     nullable: true
@@ -131,7 +117,7 @@ properties:
       unique: false
       id: false
       generated: false
-      length: 30
+      length: 100
   -
     name: name
     type: string
@@ -275,6 +261,14 @@ orm:
   indexes: {  }
   unique_constraints: {  }
   fields:
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
     direction:
       kind: field
       column: direction
@@ -353,14 +347,6 @@ orm:
       unique: false
       id: false
       generated: false
-    id:
-      kind: field
-      column: id
-      type: uuid
-      nullable: false
-      unique: true
-      id: true
-      generated: false
     name:
       kind: field
       column: name
@@ -378,16 +364,7 @@ orm:
       unique: false
       id: false
       generated: false
-      length: 30
-    format:
-      kind: field
-      column: format
-      type: string
-      nullable: true
-      unique: false
-      id: false
-      generated: false
-      length: 120
+      length: 100
   associations:
     slot:
       kind: association

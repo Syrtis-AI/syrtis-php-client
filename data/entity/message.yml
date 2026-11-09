@@ -26,7 +26,7 @@ properties:
       unique: false
       id: false
       generated: false
-      length: 30
+      length: 100
   -
     name: dateCreated
     type: DateTimeInterface
@@ -40,20 +40,6 @@ properties:
       unique: false
       id: false
       generated: false
-  -
-    name: format
-    type: string
-    nullable: true
-    default: null
-    orm:
-      kind: field
-      column: format
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 120
   -
     name: name
     type: string
@@ -312,6 +298,14 @@ orm:
   indexes: {  }
   unique_constraints: {  }
   fields:
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
     content:
       kind: field
       column: content
@@ -320,15 +314,6 @@ orm:
       unique: false
       id: false
       generated: false
-    contentType:
-      kind: field
-      column: content_type
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 30
     dateCreated:
       kind: field
       column: date_created
@@ -337,15 +322,6 @@ orm:
       unique: false
       id: false
       generated: false
-    format:
-      kind: field
-      column: format
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 120
     origin:
       kind: field
       column: origin
@@ -392,14 +368,6 @@ orm:
       unique: false
       id: false
       generated: false
-    id:
-      kind: field
-      column: id
-      type: uuid
-      nullable: false
-      unique: true
-      id: true
-      generated: false
     name:
       kind: field
       column: name
@@ -409,6 +377,15 @@ orm:
       id: false
       generated: false
       length: 255
+    contentType:
+      kind: field
+      column: content_type
+      type: string
+      nullable: false
+      unique: false
+      id: false
+      generated: false
+      length: 100
   associations:
     request:
       kind: association

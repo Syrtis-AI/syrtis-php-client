@@ -203,16 +203,16 @@ properties:
           unique: false
           on_delete: null
   -
-    name: card
+    name: step
     type: relation
     nullable: true
     default: null
-    target: card
+    target: step
     orm:
       kind: association
       association_type: many_to_one
-      target_entity: App\Entity\Card
-      target: card
+      target_entity: App\Entity\Step
+      target: step
       mapped_by: null
       inversed_by: null
       is_owning_side: true
@@ -221,11 +221,11 @@ properties:
       fetch: 2
       join_columns:
         -
-          name: card_id
+          name: step_id
           referenced_column_name: id
           nullable: true
           unique: false
-          on_delete: null
+          on_delete: 'SET NULL'
   -
     name: lastEvent
     type: string
@@ -248,6 +248,14 @@ orm:
   indexes: {  }
   unique_constraints: {  }
   fields:
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
     lastEvent:
       kind: field
       column: last_event
@@ -300,14 +308,6 @@ orm:
       unique: false
       id: false
       generated: false
-    id:
-      kind: field
-      column: id
-      type: uuid
-      nullable: false
-      unique: true
-      id: true
-      generated: false
   associations:
     messages:
       kind: association
@@ -357,11 +357,11 @@ orm:
           nullable: true
           unique: false
           on_delete: null
-    card:
+    step:
       kind: association
       association_type: many_to_one
-      target_entity: App\Entity\Card
-      target: card
+      target_entity: App\Entity\Step
+      target: step
       mapped_by: null
       inversed_by: null
       is_owning_side: true
@@ -370,11 +370,11 @@ orm:
       fetch: 2
       join_columns:
         -
-          name: card_id
+          name: step_id
           referenced_column_name: id
           nullable: true
           unique: false
-          on_delete: null
+          on_delete: 'SET NULL'
     parent:
       kind: association
       association_type: many_to_one

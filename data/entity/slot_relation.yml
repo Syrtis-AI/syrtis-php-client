@@ -96,6 +96,14 @@ orm:
   indexes: {  }
   unique_constraints: {  }
   fields:
+    id:
+      kind: field
+      column: id
+      type: uuid
+      nullable: false
+      unique: true
+      id: true
+      generated: false
     portSource:
       kind: field
       column: port_source
@@ -114,14 +122,6 @@ orm:
       id: false
       generated: false
       length: 60
-    id:
-      kind: field
-      column: id
-      type: uuid
-      nullable: false
-      unique: true
-      id: true
-      generated: false
   associations:
     slotSource:
       kind: association
