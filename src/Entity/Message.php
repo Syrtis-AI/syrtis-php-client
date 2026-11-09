@@ -12,7 +12,6 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string ORIGIN_USER = 'user';
 
     final public const string CONTENT_TYPE_ACTIONS = 'conversation/actions';
-    final public const string CONTENT_TYPE_ANALYSIS = 'core/analysis';
     final public const string CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
     final public const string CONTENT_TYPE_DEBUG = 'core/debug';
     final public const string CONTENT_TYPE_DOWNLOAD = 'core/download';
@@ -40,6 +39,7 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_HTML = 'content/html';
     final public const string CONTENT_TYPE_YAML = 'content/yaml';
     final public const string CONTENT_TYPE_JSON = 'content/json';
+    final public const string CONTENT_TYPE_OBJECT = 'content/object';
 
 
     public function getContent(): ?string
