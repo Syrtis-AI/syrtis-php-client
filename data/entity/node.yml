@@ -15,18 +15,6 @@ properties:
       generated: false
       length: 120
   -
-    name: secureId
-    type: string
-    orm:
-      kind: field
-      column: secure_id
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 255
-  -
     name: id
     type: Symfony\Component\Uid\Uuid
     orm:
@@ -63,14 +51,5 @@ orm:
       id: false
       generated: false
       length: 120
-    secureId:
-      kind: field
-      column: secure_id
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 255
   associations: {  }
 visibility: public

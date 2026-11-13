@@ -63,18 +63,6 @@ properties:
       cascade: {  }
       fetch: 2
   -
-    name: secureId
-    type: string
-    orm:
-      kind: field
-      column: secure_id
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 255
-  -
     name: type
     type: string
     nullable: true
@@ -154,30 +142,6 @@ properties:
       cascade:
         - remove
       fetch: 2
-  -
-    name: projection
-    type: relation
-    nullable: true
-    default: null
-    target: projection
-    orm:
-      kind: association
-      association_type: many_to_one
-      target_entity: App\Entity\Projection
-      target: projection
-      mapped_by: null
-      inversed_by: null
-      is_owning_side: true
-      orphan_removal: false
-      cascade: {  }
-      fetch: 2
-      join_columns:
-        -
-          name: projection_id
-          referenced_column_name: id
-          nullable: true
-          unique: false
-          on_delete: CASCADE
   -
     name: session
     type: relation
@@ -282,15 +246,6 @@ orm:
       unique: false
       id: false
       generated: false
-    secureId:
-      kind: field
-      column: secure_id
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 255
     type:
       kind: field
       column: type
@@ -321,24 +276,6 @@ orm:
       cascade:
         - remove
       fetch: 2
-    projection:
-      kind: association
-      association_type: many_to_one
-      target_entity: App\Entity\Projection
-      target: projection
-      mapped_by: null
-      inversed_by: null
-      is_owning_side: true
-      orphan_removal: false
-      cascade: {  }
-      fetch: 2
-      join_columns:
-        -
-          name: projection_id
-          referenced_column_name: id
-          nullable: true
-          unique: false
-          on_delete: CASCADE
     session:
       kind: association
       association_type: many_to_one

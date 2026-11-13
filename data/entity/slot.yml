@@ -42,18 +42,6 @@ properties:
       id: false
       generated: false
   -
-    name: secureId
-    type: string
-    orm:
-      kind: field
-      column: secure_id
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 255
-  -
     name: id
     type: Symfony\Component\Uid\Uuid
     orm:
@@ -279,6 +267,24 @@ properties:
         - remove
         - persist
       fetch: 2
+  -
+    name: slotFilters
+    type: collection
+    description: SlotFilter>
+    target: slot_filter
+    orm:
+      kind: association
+      association_type: one_to_many
+      target_entity: App\Entity\SlotFilter
+      target: slot_filter
+      mapped_by: slot
+      inversed_by: null
+      is_owning_side: false
+      orphan_removal: true
+      cascade:
+        - remove
+        - persist
+      fetch: 2
 orm:
   class: App\Entity\Slot
   table: slot
@@ -346,15 +352,6 @@ orm:
       unique: false
       id: false
       generated: false
-    secureId:
-      kind: field
-      column: secure_id
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 255
   associations:
     job:
       kind: association
@@ -475,6 +472,19 @@ orm:
       association_type: one_to_many
       target_entity: App\Entity\SlotOutputMessage
       target: slot_output_message
+      mapped_by: slot
+      inversed_by: null
+      is_owning_side: false
+      orphan_removal: true
+      cascade:
+        - remove
+        - persist
+      fetch: 2
+    slotFilters:
+      kind: association
+      association_type: one_to_many
+      target_entity: App\Entity\SlotFilter
+      target: slot_filter
       mapped_by: slot
       inversed_by: null
       is_owning_side: false

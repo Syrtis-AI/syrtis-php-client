@@ -92,18 +92,6 @@ properties:
           unique: false
           on_delete: null
   -
-    name: secureId
-    type: string
-    orm:
-      kind: field
-      column: secure_id
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 255
-  -
     name: versionMajor
     type: int
     default: 0
@@ -331,15 +319,6 @@ orm:
       id: false
       generated: false
       length: 30
-    secureId:
-      kind: field
-      column: secure_id
-      type: string
-      nullable: false
-      unique: false
-      id: false
-      generated: false
-      length: 255
     versionMajor:
       kind: field
       column: version_major
