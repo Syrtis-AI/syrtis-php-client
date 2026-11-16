@@ -12,10 +12,12 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string ORIGIN_USER = 'user';
 
     final public const string CONTENT_TYPE_ACTIONS = 'conversation/actions';
+    final public const string CONTENT_TYPE_ARTIFACT = 'core/artifact';
     final public const string CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
     final public const string CONTENT_TYPE_DEBUG = 'core/debug';
     final public const string CONTENT_TYPE_DOWNLOAD = 'core/download';
     final public const string CONTENT_TYPE_ERROR = 'core/error';
+    final public const string CONTENT_TYPE_FILE = 'core/file';
     final public const string CONTENT_TYPE_FORM = 'core/form';
     final public const string CONTENT_TYPE_HTTP_RESPONSE = 'core/http_response';
     final public const string CONTENT_TYPE_IMAGE = 'core/image';
@@ -29,7 +31,6 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_SESSION_STATUS = 'core/session_status';
     final public const string CONTENT_TYPE_SUCCESS = 'web/success';
     final public const string CONTENT_TYPE_THOUGHT = 'conversation/thought';
-    final public const string CONTENT_TYPE_UPLOAD = 'core/upload';
     final public const string CONTENT_TYPE_URL = 'core/url';
     final public const string CONTENT_TYPE_VIDEO = 'core/video';
     final public const string CONTENT_TYPE_WARNING = 'core/warning';
