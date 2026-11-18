@@ -16,7 +16,7 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
     final public const string CONTENT_TYPE_DEBUG = 'core/debug';
     final public const string CONTENT_TYPE_DOWNLOAD = 'core/download';
-    final public const string CONTENT_TYPE_ERROR = 'core/error';
+    final public const string CONTENT_TYPE_ERROR = 'process/error';
     final public const string CONTENT_TYPE_FILE = 'content/file';
     final public const string CONTENT_TYPE_FORM = 'core/form';
     final public const string CONTENT_TYPE_HTTP_RESPONSE = 'http/response';
@@ -33,7 +33,7 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_THOUGHT = 'conversation/thought';
     final public const string CONTENT_TYPE_URL = 'core/url';
     final public const string CONTENT_TYPE_VIDEO = 'core/video';
-    final public const string CONTENT_TYPE_WARNING = 'core/warning';
+    final public const string CONTENT_TYPE_WARNING = 'process/warning';
     // The types of a message's shape alone: a text, a value as JSON.
     final public const string CONTENT_TYPE_TEXT = 'content/text';
     final public const string CONTENT_TYPE_MARKDOWN = 'content/markdown';
