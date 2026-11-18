@@ -15,14 +15,14 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_ARTIFACT = 'core/artifact';
     final public const string CONTENT_TYPE_CONVERSATION_MESSAGE = 'conversation/message';
     final public const string CONTENT_TYPE_DEBUG = 'core/debug';
-    final public const string CONTENT_TYPE_DOWNLOAD = 'core/download';
+    final public const string CONTENT_TYPE_DOWNLOAD = 'web/link';
     final public const string CONTENT_TYPE_ERROR = 'process/error';
     final public const string CONTENT_TYPE_FILE = 'content/file';
-    final public const string CONTENT_TYPE_FORM = 'core/form';
+    final public const string CONTENT_TYPE_FORM = 'web/form';
     final public const string CONTENT_TYPE_HTTP_RESPONSE = 'http/response';
-    final public const string CONTENT_TYPE_IMAGE = 'core/image';
+    final public const string CONTENT_TYPE_IMAGE = 'web/image';
     final public const string CONTENT_TYPE_INFO = 'web/info';
-    final public const string CONTENT_TYPE_LIST = 'core/list';
+    final public const string CONTENT_TYPE_LIST = 'web/item_list';
     final public const string CONTENT_TYPE_NAVIGATE = 'core/navigate';
     final public const string CONTENT_TYPE_NAVIGATED = 'core/navigated';
     final public const string CONTENT_TYPE_PROGRESS = 'web/progress';
@@ -31,8 +31,8 @@ class Message extends \SyrtisClient\Entity\AbstractApiEntity
     final public const string CONTENT_TYPE_SESSION_STATUS = 'core/session_status';
     final public const string CONTENT_TYPE_SUCCESS = 'web/success';
     final public const string CONTENT_TYPE_THOUGHT = 'conversation/thought';
-    final public const string CONTENT_TYPE_URL = 'core/url';
-    final public const string CONTENT_TYPE_VIDEO = 'core/video';
+    final public const string CONTENT_TYPE_URL = 'web/link';
+    final public const string CONTENT_TYPE_VIDEO = 'web/video';
     final public const string CONTENT_TYPE_WARNING = 'process/warning';
     // The types of a message's shape alone: a text, a value as JSON.
     final public const string CONTENT_TYPE_TEXT = 'content/text';
