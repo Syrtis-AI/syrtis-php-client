@@ -87,6 +87,18 @@ properties:
       id: true
       generated: false
   -
+    name: lineage
+    type: relation
+    target: uuid
+    orm:
+      kind: field
+      column: lineage
+      type: uuid
+      nullable: false
+      unique: false
+      id: false
+      generated: false
+  -
     name: job
     type: relation
     nullable: true
@@ -148,7 +160,10 @@ orm:
   table: step
   identifier:
     - id
-  indexes: {  }
+  indexes:
+    step_lineage:
+      columns:
+        - lineage
   unique_constraints: {  }
   fields:
     id:
@@ -158,6 +173,14 @@ orm:
       nullable: false
       unique: true
       id: true
+      generated: false
+    lineage:
+      kind: field
+      column: lineage
+      type: uuid
+      nullable: false
+      unique: false
+      id: false
       generated: false
     title:
       kind: field
