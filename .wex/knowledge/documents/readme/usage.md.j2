@@ -75,6 +75,20 @@ $messages = $sessionRepository->sendMessage(
 );
 ```
 
+### Project content types
+
+A project's own content type is named `<project id>/<name>`. Write it `@project/<name>` instead: the API reads the alias as the session's project, and stores the full name.
+
+```php
+$messages = $sessionRepository->sendMessage(
+    sessionSecureId: $sessionSecureId,
+    messages: [
+        ['content' => json_encode($report), 'contentType' => '@project/campaign_report', 'name' => 'campaign_report'],
+    ],
+    sync: true,
+);
+```
+
 ### Uploading files
 
 Files are sent in the same multipart POST (fields `upload_0`, `upload_1`, …). Each file may be a path, an `SplFileInfo`, an open resource, or a Guzzle multipart part:
