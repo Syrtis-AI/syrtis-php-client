@@ -1,6 +1,20 @@
 name: template
 properties:
   -
+    name: testVariable
+    type: string
+    nullable: true
+    default: null
+    orm:
+      kind: field
+      column: test_variable
+      type: string
+      nullable: true
+      unique: false
+      id: false
+      generated: false
+      length: 64
+  -
     name: dateCreated
     type: DateTimeInterface
     nullable: true
@@ -92,6 +106,15 @@ orm:
       unique: true
       id: true
       generated: false
+    testVariable:
+      kind: field
+      column: test_variable
+      type: string
+      nullable: true
+      unique: false
+      id: false
+      generated: false
+      length: 64
     dateCreated:
       kind: field
       column: date_created
