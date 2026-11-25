@@ -92,6 +92,20 @@ properties:
           unique: false
           on_delete: null
   -
+    name: testVariable
+    type: string
+    nullable: true
+    default: null
+    orm:
+      kind: field
+      column: test_variable
+      type: string
+      nullable: true
+      unique: false
+      id: false
+      generated: false
+      length: 64
+  -
     name: versionMajor
     type: int
     default: 0
@@ -319,6 +333,15 @@ orm:
       id: false
       generated: false
       length: 30
+    testVariable:
+      kind: field
+      column: test_variable
+      type: string
+      nullable: true
+      unique: false
+      id: false
+      generated: false
+      length: 64
     versionMajor:
       kind: field
       column: version_major
