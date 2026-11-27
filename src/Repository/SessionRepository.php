@@ -138,6 +138,17 @@ class SessionRepository extends AbstractApiRepository
     }
 
     /**
+     * Stops what the session has under way: its requests not done yet are
+     * cancelled, no step more runs. How many were.
+     */
+    public function stopSession(string $sessionSecureId): int
+    {
+        $response = $this->post('stop/' . rawurlencode($sessionSecureId), []);
+
+        return (int) ($this->extractPayload($response)['stopped'] ?? 0);
+    }
+
+    /**
      * Fetches a scoped, short-lived Mercure subscriber JWT for this session,
      * typically served to a frontend consuming live updates. Topics include
      * the versioned one ({apiVersion}/entity/session/event/{id}) —
